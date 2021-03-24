@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AA-drag</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      #left,
+      #right,
+      #middle {
+        height: 100vh;
+        position: absolute;
+      }
+      #left {
+        width: 300px;
+        background: #ccc;
+      }
+      #middle {
+        width: 5px;
+        background: #666;
+        left: 300px;
+      }
+      #middle:hover {
+        cursor: col-resize;
+      }
+      #right {
+        right: 0;
+        background: #ccc;
+        left: 305px;
+        width: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="left">左侧内容</div>
+    <div id="middle"></div>
+    <div id="right">右侧内容</div>
+  </body>
+</html>
+<script>
+  function getEle(id) {
+    return document.getElementById(id);
+  }
+  window.onload = function () {
+    let left = getEle('left');
+    let right = getEle('right');
+    let middle = getEle('middle');
+
+    let middleWidth = 5;
+    middle.onmousedown = function (e) {
+      var disX = (e || event).clientX;
+      middle.left = middle.offsetLeft;
+      document.onmousemove = function (e) {
+        let middleLeft = middle.left + ((e || event).clientX - disX);
+        let maxWidth = document.body.clientWidth;
+        middleLeft < 0 && (middleLeft = 0);
+        middleLeft > maxWidth && (middleLeft = maxWidth);
+        middle.style.left = left.style.width = middleLeft + 'px';
+        right.style.width = maxWidth - middleLeft - middleWidth + 'px';
+        right.style.left = middleLeft + middleWidth + 'px';
+        return false;
+      };
+      document.onmouseup = function () {
+        document.onmousemove = null;
+        document.onmouseup = null;
+        middle.releaseCapture && middle.releaseCapture();
+      };
+      middle.setCapture && middle.setCapture();
+      return false;
+    };
+  };
+</script>
