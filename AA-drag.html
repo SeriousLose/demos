@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AA-drag</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .fl-container {
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .fl-resize-bar,
+      .fl-resize-bar::-webkit-scrollbar {
+        width: 400px;
+      }
+      .fl-left {
+        position: relative;
+        float: left;
+        height: 100vh;
+        background: pink;
+      }
+      .fl-right {
+        box-sizing: border-box;
+        overflow-x: hidden;
+        height: 100vh;
+      }
+      .fl-cont-right {
+        height: 200vh;
+      }
+      .fl-resize-bar {
+        height: inherit;
+        resize: horizontal;
+        cursor: ew-resize;
+        cursor: col-resize;
+        opacity: 0;
+        overflow: scroll;
+      }
+      .fl-resize-bar::-webkit-scrollbar {
+        width: 400px;
+        height: inherit;
+      }
+
+      .fl-cont-left {
+        position: absolute;
+        top: 0;
+        right: 4px; /* 拖拽线的间距 */
+        bottom: 0;
+        left: 0;
+        overflow-x: hidden;
+        background: #fff;
+      }
+
+      .fl-resize-line {
+        position: absolute;
+        right: 1px;
+        top: 0;
+        bottom: 0;
+        border-right: 2px solid #bbb;
+        pointer-events: none;
+      }
+      .fl-resize-bar:hover ~ .fl-resize-line,
+      .fl-resize-bar:active ~ .fl-resize-line {
+        border-right: 2px dashed skyblue;
+      }
+
+      /* Firefox只有下面一小块区域可以拉伸 */
+      @supports (-moz-user-select: none) {
+        .fl-resize-bar:hover ~ .fl-resize-line,
+        .fl-resize-bar:active ~ .fl-resize-line {
+          border-right: 2px solid #bbb;
+        }
+        .fl-resize-bar:hover ~ .fl-resize-line::after,
+        .fl-resize-bar:active ~ .fl-resize-line::after {
+          content: '';
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          bottom: 0;
+          right: -8px;
+          background: url(https://www.zhangxinxu.com/study/201903/css-idea/resize.svg);
+          background-size: 100% 100%;
+          z-index: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fl-container">
+      <div class="fl-left">
+        <div class="fl-resize-bar"></div>
+        <div class="fl-resize-line"></div>
+        <div class="fl-cont-left">左侧内容</div>
+      </div>
+      <div class="fl-right">
+        <div class="fl-cont-right">
+          右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容 右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容
+          右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧
+          内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
