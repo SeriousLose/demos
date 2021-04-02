@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  function Foo() {
+    getName = function () {
+      console.log(1);
+    };
+    getName1 = function () {
+      console.log(6);
+    };
+    return this;
+  }
+
+  Foo.getName = function () {
+    console.log(2);
+  };
+  Foo.prototype.getName = function () {
+    console.log(3);
+  };
+  var getName = function () {
+    console.log(this);
+    console.log(4);
+  };
+
+  function getName() {
+    console.log(5);
+  }
+
+  // 直接调用 Foo.getName()方法,输出2
+  Foo.getName(); // 2
+
+  // 报错....Foo上无该方法;
+  // Foo.getName1();
+
+  // var 导致变量提升
+  getName(); // 4
+
+  // Foo(),返回this,相当于调用自身上的getName方法,输出 1
+  Foo().getName(); // 1
+
+  Foo().getName1(); // 1
+
+  getName1();
+
+  //
+  getName(); // 1
+
+  // 先执行了Foo.getName()方法后,输出2;
+  new Foo.getName(); // 2
+
+  new Foo().getName(); // 3
+  new new Foo().getName(); // 3
+</script>
