@@ -9,13 +9,15 @@
 </html>
 <script>
   function Foo() {
+    console.log(this)
     getName = function () {
       console.log(1);
     };
     getName1 = function () {
       console.log(6);
     };
-    return this;
+    // return this;
+    return 1;
   }
 
   Foo.getName = function () {
@@ -33,28 +35,76 @@
     console.log(5);
   }
 
-  // 直接调用 Foo.getName()方法,输出2
   Foo.getName(); // 2
+  // Foo为一个函数对象，对象都可以有属性
+  // 直接调用 Foo.getName()方法,输出2
 
-  // 报错....Foo上无该方法;
   // Foo.getName1();
+  // 报错....Foo上无该方法;
 
-  // var 导致变量提升
   getName(); // 4
+  /*
+    var getName = function () {
+      console.log(this);
+      console.log(4);
+    };
+    var getName 声明变量提升;
 
-  // Foo(),返回this,相当于调用自身上的getName方法,输出 1
+    function getName() {
+      console.log(5);
+    }
+    函数声明提升;
+    getName = function() {
+      console.log(5);
+    }
+
+    getName变量赋值,覆盖getName函数;
+
+    执行顺序为
+    var getName = undefined;
+
+    getName = function() {
+      console.log(5);
+    }
+
+    变量重新赋值
+    getName = function () {
+      console.log(4);
+    }
+   */
+
   Foo().getName(); // 1
+   // Foo() // return 1 测试使用
 
-  Foo().getName1(); // 1
+  // 在Foo内部将全局的getName重新赋值为 console.log(1) 的函数，
+  // 执行Foo()返回 this，这个this指向window，
+  // Foo().getName() 即为window.getName()，输出 1
 
-  getName1();
+  // Foo() => window.Foo(); 所以内部this为window
+  // 函数内部的 return this(并不是this的问题,哪怕是return 1也是同样的) 把整个函数内容返回到了上层作用域
 
-  //
+
   getName(); // 1
+  // window.getName()，输出 1
 
-  // 先执行了Foo.getName()方法后,输出2;
+  getName1(); // 6
+  // window.getName1(), 输出6
+
   new Foo.getName(); // 2
+  // 先执行了new (Foo.getName()),Foo.getName()方法后,输出2;
 
   new Foo().getName(); // 3
+  //  (new Foo()).getName()
+  // 先new一个Foo的实例，再执行这个实例的getName方法，
+  // 但是这个实例本身没有这个方法，所以去原型链__protot__上边找，实例.__protot__ === Foo.prototype，所以输出 3。
+  //  带参数列表 与 成员访问 的优先级相同，
+  // 按照运算符规则（同一优先级，按照从左向右的执行顺序），
+  // new Foo().getName()先执行new Foo()，再对new之后的实例进行成员访问.getName()操作。
+
   new new Foo().getName(); // 3
+  // new (new Foo().getName())
+
+  // new Foo() 属于new（带参数列表）
+  // new Foo属于new（无参数列表）
+
 </script>
