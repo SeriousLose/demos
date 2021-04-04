@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  function Foo(name, age) {
+    this.name = name;
+    this.age = age;
+    return { name: 'SeriousLose' };
+  }
+  var foo = new Foo('Fly', 18);
+  foo.name; // SeriousLose
+
+// 函数Return
+
+// Return 简单类型
+// * return的是五种简单数据类型：String，Number，Boolean，Null，Undefined;
+// * 这种情况下，忽视return值，依然返回this对象。
+// Return Object
+// * 不再返回this对象，而是返回return语句的返回值。
+</script>
