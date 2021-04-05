@@ -16,11 +16,70 @@
   var foo = new Foo('Fly', 18);
   foo.name; // SeriousLose
 
-// 函数Return
+  // 函数Return
 
-// Return 简单类型
-// * return的是五种简单数据类型：String，Number，Boolean，Null，Undefined;
-// * 这种情况下，忽视return值，依然返回this对象。
-// Return Object
-// * 不再返回this对象，而是返回return语句的返回值。
+  // Return 简单类型
+  // * return的是五种简单数据类型：String，Number，Boolean，Null，Undefined;
+  // * 这种情况下，忽视return值，依然返回this对象。
+  // Return Object
+  // * 不再返回this对象，而是返回return语句的返回值。
+
+  function functionName() {}
+  console.log(functionName); // functionName(){}
+
+  // let fn = function () {};
+
+
+
+  // // 有名函数,可以直接通过函数名调用
+  // function xx() {
+  //   console.log('么么哒');
+  // }
+  // xx();
+
+  // let fn = function () {
+  //   console.log('不么么哒');
+  // };
+  // // 赋值给变量,变量接收函数,变量名即为函数名 因此也是有名函数 fn直接调用 fn()
+
+
+
+  // // function(){} // 直接报错
+  // // 由于没有名字的函数, 没有办法进行调用,所以它不能是单独的一条语句
+
+  // // 更多的是配合别的语句使用,如赋值操作,或者存于数组 或者对象中,可以通过数组序号和对象属性调用
+  // box.onclick = function () {};
+  // let arr = [function () {}];
+  // let json = { fn1: function () {} };
+
+  // let fn = function () {
+  //   console.log('函数的执行');
+  // };
+  // fn(); // let 声明 先声明, 再使用
+
+  // // function(){}()
+  // // 匿名函数直接执行,js解释器会区别函数声明和函数表达式,当前语句是以function开头,
+  // // 因此识别为 函数声明,函数声明必须带上函数名,因此直接报错 并且 函数声明也不能自执行
+
+  // // 用括号全部包住,防止识别为函数声明,就可以自执行了
+  // (function(){console.log("自执行1")}())
+
+  // (function () {
+  //   console.log('自执行1');
+  // })();
+
+  // let fn = (function () {
+  //   console.log(123);
+  // })();
+  // fn();  // uncaught TypeError: fn is not a function
+
+
+
+  // (function(){console.log("自执行1")}())
+  // (function(){console.log("自执行2")})()
+  // !function(){}()
+  // +function(){}()
+  // -function(){}()
+  // ~function(){}()
+
 </script>
