@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  function structuralClone(obj) {
+    return new Promise((resolve) => {
+      const { port1, port2 } = new MessageChannel();
+      port2.onmessage = (ev) => resolve(ev.data);
+      port1.postMessage(obj);
+    });
+  }
+  const obj = {
+    name: 'SeriousLose',
+    obj: {
+      name: 'fly',
+    },
+  };
+  structuralClone(obj).then((res) => {
+    console.log(res);
+  });
+
+  function structuralClone(obj) {
+    const oldState = history.state;
+    history.replaceState(obj, document.title);
+    const copy = history.state;
+    history.replaceState(oldState, document.title);
+    return copy;
+  }
+
+  var obj = {};
+  var b = { obj };
+  obj.b = b;
+  var copy = structuralClone(obj);
+  console.log(copy);
+
+  function structuralClone(obj) {
+    return new Notification('', { data: obj, silent: true }).data;
+  }
+
+  var obj = {};
+  var b = { obj };
+  obj.b = b;
+  var copy = structuralClone(obj);
+  console.log(copy);
+</script>
