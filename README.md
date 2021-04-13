@@ -9,7 +9,8 @@ learning test
 ### AF-debounce 防抖理解
 ### AG-throttle 节流理解
 ### AH-clone 深度拷贝;
+### AI-ng ng说明;
+### AJ-最大公共前缀;
+### AK-ajax Ajax的监听;
 
-
-
-# 有帮助的话,给个小星星✨✨
+## 有帮助的话,给个小星星✨✨
