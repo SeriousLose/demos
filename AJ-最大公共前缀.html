@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  function longestCommonPrefix(strs) {
+    if (strs === null || strs.length === 0) return '';
+    let str = strs[0];
+    let publicStr = '';
+    for (let i = 0; i < str.length; i++) {
+      publicStr = str.slice(0, str.length - i);
+      let isTrue = true;
+      for (let item of strs) {
+        if (item.indexOf(publicStr) != 0) {
+          isTrue = false;
+          break;
+        }
+      }
+      if (isTrue) {
+        break;
+      }
+      console.log(i == str.length - 1, isTrue,111);
+      if (i == str.length - 1 && !isTrue) {
+        publicStr = '';
+      }
+    }
+    return publicStr;
+  }
+  let a = longestCommonPrefix(['c','ac','ccc']);
+  console.log(a);
+</script>
