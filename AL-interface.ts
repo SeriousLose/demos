@@ -62,3 +62,46 @@
   }
 
   sum(32, 22)
+
+  interface Entity {
+    title: string;
+    log(): void;
+  }
+
+  class Post implements Entity {
+    title: string;
+
+    constructor(title: string) {
+      this.title = title;
+    }
+
+    log(): void {
+      console.log(this.title);
+    }
+  }
+
+  import Good from '../model/good';
+
+  // 定义基本查询类型
+  // -- 查询列表时候使用的接口
+  interface Query {
+      page: number;
+      rows: number;
+      disabledPage?: boolean; // 是否禁用分页，true将会忽略`page`和`rows`参数
+    }
+
+  // 定义基本返回类型
+  type GoodResult<Entity> = {
+      list: Entity[];
+      total: number;
+      [propName: string]: any;
+  };
+
+  // - 商品
+  export interface GoodsQuery extends Query {
+      isOnline?: string | number; // 是否出售中的商品
+      goodsNo?: string; // 商品编号
+      goodsName?: string; // 商品名称
+  }
+  export type GoodResult = QueryResult<Good>;
+
