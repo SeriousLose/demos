@@ -80,6 +80,7 @@
     }
   }
 
+
   import Good from '../model/good';
 
   // 定义基本查询类型
