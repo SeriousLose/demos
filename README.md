@@ -12,5 +12,8 @@ learning test
 ### AI-ng ng说明;
 ### AJ-最大公共前缀;
 ### AK-ajax Ajax的监听;
+### AL-interface interface;
+### AM-interface interface;
+### AN-object 包装对象;
 
 ## 有帮助的话,给个小星星✨✨
