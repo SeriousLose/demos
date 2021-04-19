@@ -70,18 +70,20 @@
      * @param mutationRecord: Callback of MutationObserve
      *  => mutations: MutationRecord[]
      */
-
-    if (mutationRecord.type === 'attributes' && mutationRecord.attributeName === 'ripple' && !mutationRecord.target.hasAttribute('ripple-init')) {
-      mutationRecord.target.addEventListener('click', showRipple);
-      mutationRecord.target.setAttribute('ripple-init', '');
+    for (let mutation of mutationRecord) {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'ripple' && !mutation.target.hasAttribute('ripple-init')) {
+        mutation.target.addEventListener('click', showRipple);
+        mutation.target.setAttribute('ripple-init', '');
+      }
+      if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE && !node.hasAttribute('ripple-init') && node.hasAttribute('ripple')) {
+            node.addEventListener('click', showRipple);
+            node.setAttribute('ripple-init', '');
+          }
+        });
+      }
     }
-    if (mutationRecord.addedNodes && mutationRecord.addedNodes.length > 0)
-      mutationRecord.addedNodes.forEach((node) => {
-        if (node.nodeType === Node.ELEMENT_NODE && !node.hasAttribute('ripple-init') && node.hasAttribute('ripple')) {
-          node.addEventListener('click', showRipple);
-          node.setAttribute('ripple-init', '');
-        }
-      });
   };
 
   const mutationObserver = new MutationObserver(listener);
@@ -91,6 +93,7 @@
     document.querySelector('button').setAttribute('ripple', '');
     let btn = document.createElement('button');
     btn.setAttribute('ripple', '');
+    // btn.setAttribute('class', 'ripple');
     btn.innerText = '这是另外一个简单的按钮';
     document.body.appendChild(btn);
   }, 2000);
