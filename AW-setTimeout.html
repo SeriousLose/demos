@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  let a = performance.now();
+  setTimeout(() => {
+    let b = performance.now();
+    console.log(b - a);
+    setTimeout(() => {
+      let c = performance.now();
+      console.log(c - b);
+      setTimeout(() => {
+        let d = performance.now();
+        console.log(d - c);
+        setTimeout(() => {
+          let e = performance.now();
+          console.log(e - d);
+          setTimeout(() => {
+            let f = performance.now();
+            console.log(f - e);
+            setTimeout(() => {
+              let g = performance.now();
+              console.log(g - f);
+            }, 0);
+          }, 0);
+        }, 0);
+      }, 0);
+    }, 0);
+  }, 0);
+</script>
