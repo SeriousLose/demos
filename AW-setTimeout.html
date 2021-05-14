@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body onload="runtest()">
+    <h1>Demo: Using postMessage to do setTimeout with a real zero timeout</h1>
+
+    <pre id="output"></pre>
+  </body>
 </html>
 <script>
   let a = performance.now();
@@ -33,4 +37,87 @@
       }, 0);
     }, 0);
   }, 0);
+</script>
+<script>
+  (function () {
+    var timeouts = [];
+    var messageName = 'zero-timeout-message';
+
+    // 保持 setTimeout 的形态，只接受单个函数的参数，延迟始终为 0。
+    function setZeroTimeout(fn) {
+      timeouts.push(fn);
+      window.postMessage(messageName, '*');
+    }
+
+    function handleMessage(event) {
+      if (event.source == window && event.data == messageName) {
+        event.stopPropagation();
+        if (timeouts.length > 0) {
+          var fn = timeouts.shift();
+          fn();
+        }
+      }
+    }
+    window.addEventListener('message', handleMessage, true);
+    window.setZeroTimeout = setZeroTimeout; // 把 API 添加到 window 对象上
+  })();
+</script>
+<script>
+  function runtest() {
+    var output = document.getElementById('output');
+    var outputText = document.createTextNode('');
+    output.appendChild(outputText);
+    function printOutput(line) {
+      outputText.data += line + '\n';
+    }
+
+    var i = 0;
+    var startTime = Date.now();
+    // 通过递归 setZeroTimeout 达到 100 计数
+    // 达到 100 后切换成 setTimeout 来实验
+    function test1() {
+      if (++i == 100) {
+        var endTime = Date.now();
+        printOutput('100 iterations of setZeroTimeout took ' + (endTime - startTime) + ' milliseconds.');
+        i = 0;
+        startTime = Date.now();
+        setTimeout(test2, 0);
+      } else {
+        setZeroTimeout(test1);
+      }
+    }
+
+    setZeroTimeout(test1);
+
+    // 通过递归 setTimeout 达到 100 计数
+    function test2() {
+      if (++i == 100) {
+        var endTime = Date.now();
+        printOutput('100 iterations of setTimeout(0) took ' + (endTime - startTime) + ' milliseconds.');
+      } else {
+        setTimeout(test2, 0);
+      }
+    }
+  }
+</script>
+<script>
+  const channel = new MessageChannel();
+  const port = channel.port2;
+
+  // 每次 port.postMessage() 调用就会添加一个宏任务
+  // 该宏任务为调用 scheduler.scheduleTask 方法
+  channel.port1.onmessage = scheduler.scheduleTask;
+
+  const scheduler = {
+    scheduleTask() {
+      // 挑选一个任务并执行
+      const task = pickTask();
+      const continuousTask = task();
+
+      // 如果当前任务未完成，则在下个宏任务继续执行
+      if (continuousTask) {
+        port.postMessage(null);
+      }
+    },
+  };
 </script>
