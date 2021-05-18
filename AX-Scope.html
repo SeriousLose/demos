@@ -1,21 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
 </html>
 <script>
-  var a= 0;
-  if(true){
+  // var a= 0;
+  // if(true){
+  //   a = 1;
+  //   function a(){};
+  //   a = 21;
+  //   console.log(a); // 21
+  // }
+  // console.log(a); // 1
+</script>
+<script>
+  // var a= 0;
+  // if(true){
+  //   a = 1;
+  //   function b(){};
+  //   a = 21;
+  //   console.log(a); // 21
+  // }
+  // console.log(a); // 21
+</script>
+<script>
+  // var a = 0;
+  // function a(){};
+  // if (true) {
+  //   a = 1;
+  //   function a() {}
+  //   a = 21;
+  //   console.log(a); // 21
+  // }
+  // console.log(a); // 21
+</script>
+<script>
+  var a = 0;
+  {
+    debugger
+    console.log(this)
     a = 1;
-    function a(){};
+    function a() {}
     a = 21;
     console.log(a); // 21
   }
-  console.log(a); // 1
+  console.log(a); // 21
 </script>
