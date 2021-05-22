@@ -39,27 +39,18 @@
   // console.log(a); // 21
 </script>
 <script>
-  debugger;
-  var a = 0;
-  if (true) {
-    console.log(a); // function a(){} 因为块中函数声明提升
-    a = {
-      num:1
-    }; // 块作用域中 a = 1; windows.a = 0;
-    // 函数声明提升；
-    // 特殊处理了，为了兼容ES3语法规范，会把当前的对a操作映射到全局作用域中（a = 1）,但是这个代码之后，操作就和全局没有任何关系了。
-    function a() {} // a = 1; windwos.a = 1;
-    console.log(a); // 1
-    a = 21; // a = 21;
-    console.log(a); // 21
-  }
-  console.log(a); // 1
-
-  // var a= 0;
-  // if(true){
-  //   a = 1;
-  //   function a(){};
-  //   a = 21;
+  // debugger;
+  // var a = 0;
+  // if (true) {
+  //   console.log(a); // function a(){} 因为块中函数声明提升
+  //   a = {
+  //     num:1
+  //   }; // 块作用域中 a = 1; windows.a = 0;
+  //   // 函数声明提升；
+  //   // 特殊处理了，为了兼容ES3语法规范，会把当前的对a操作映射到全局作用域中（a = 1）,但是这个代码之后，操作就和全局没有任何关系了。
+  //   function a() {} // a = 1; windwos.a = 1;
+  //   console.log(a); // 1
+  //   a = 21; // a = 21;
   //   console.log(a); // 21
   // }
   // console.log(a); // 1
@@ -72,4 +63,17 @@
   //   console.log(a);
   // }
   // console.log(a);
+</script>
+<script>
+  debugger
+  var a = 0;
+  if (true) {
+    console.log(a); // 0
+    a = 1;
+    a = function () {}
+    console.log(a); //  function a(){}
+    a = 21; // a = 21;
+    console.log(a); // 21
+  }
+  console.log(a); // 21
 </script>

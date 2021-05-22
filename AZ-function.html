@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  var hoisted = 'foo' in this;
+  console.log(`'foo' name ${hoisted ? 'is' : 'is not'} hoisted. typeof foo is ${typeof foo}`);
+  if (false) {
+    function foo() {
+      return 1;
+    }
+  }
+  // 在Chrome里:
+  // 'foo' 变量名被提升，但是 typeof foo 为 undefined
+  //
+  // 在Firefox里:
+  // 'foo' 变量名被提升. 但是 typeof foo 为 undefined
+  //
+  // 在Edge里:
+  // 'foo' 变量名未被提升. 而且 typeof foo 为 undefined
+  //
+  // 在Safari里:
+  // 'foo' 变量名被提升. 而且 typeof foo 为 function
+</script>
+<script>
+  var hoisted = 'foo' in this;
+  console.log(`'foo' name ${hoisted ? 'is' : 'is not'} hoisted. typeof foo is ${typeof foo}`);
+  if (true) {
+    function foo() {
+      return 1;
+    }
+  }
+
+  // 在Chrome里:
+  // 'foo' 变量名被提升，但是 typeof foo 为 undefined
+  //
+  // 在Firefox里:
+  // 'foo' 变量名被提升. 但是 typeof foo 为 undefined
+  //
+  // 在Edge里:
+  // 'foo' 变量名未被提升. 而且 typeof foo 为 undefined
+  //
+  // 在Safari里:
+  // 'foo' 变量名被提升. 而且 typeof foo 为 function
+</script>
+
+<script>
+  hoisted(); // "foo"
+
+  function hoisted() {
+    console.log('foo');
+  }
+
+  /* equal to*/
+  var hoisted;
+
+  hoisted = function () {
+    console.log('foo');
+  };
+  hoisted();
+  // "foo"
+</script>
+
+<script>
+  notHoisted(); // TypeError: notHoisted is not a function
+  var notHoisted = function () {
+    console.log('bar');
+  };
+</script>
