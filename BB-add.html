@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  function asyncAdd(a, b, callback) {
+    setTimeout(function () {
+      callback(null, a + b);
+    }, 1000);
+  }
+</script>
+<script>
+  function sumT(a, b) {
+    return await new Promise((resolve, reject) => {
+      asyncAdd(a, b, (err, res) => {
+        if(!err) {
+          resolve(res)
+        }
+        reject(err)
+      })
+    })
+  }
+
+  const test = await sumT(1, 2)
+  console.log(test) // 3
+</script>
+
+<script>
+  function sum(...args) {
+    return new Promise((resolve) => {
+      args.reduce((acc, cur) => acc.then((total) => sumT(total, cur)), Promise.resolve(0)).then(resolve);
+    });
+  }
+
+  console.time('sum');
+  await sum(1, 2, 3, 4, 5); // 15
+  console.timeEnd('sum');
+</script>
+
+<script>
+  async function sum(...args) {
+    console.log(args); // 用于考察每次迭代的过程
+    if (args.length === 1) return args[0];  // 如果仅有一个，直接返回
+    let result = [];
+    // 两两一组，如果有剩余一个，直接进入
+    for (let i = 0; i < args.length - 1; i += 2) {
+      result.push(sumT(args[i], args[i + 1]));
+    }
+    if (args.length % 2) result.push(args[args.length - 1]);
+    return sum(...(await Promise.all(result))); // Promise.all 组内求和
+  }
+
+  test = await sum(1, 2, 3, 4, 5);
+</script>
