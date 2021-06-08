@@ -9,22 +9,23 @@
 </html>
 <script>
   var arr = [{ name: 'a' }, { name: 'b' }, { name: 'c' }, { name: 'd' }, { name: 'f' }];
-  var logger = (a, b) => {
-    console.group('谁重复了？');
-    console.log('元素:', a);
-    console.log('下标:', b);
-    console.groupEnd();
-  };
 
   // 遍历
-  let aa = arr.filter((item, idx, its) => {
+  let repeatAry = arr.filter((item, idx, its) => {
     // 一旦发现有重复的元素就返回 true  (通过 its.some 注意他的两个参数 e 和 idx2)
     // 无重复的过滤掉
     return its.some((e, idx2) => {
       return e.name === item.name && idx2 !== idx;
     });
   });
-  console.log(aa);
+  console.log(repeatAry);
+
+  var logger = (a, b) => {
+    console.group('谁重复了？');
+    console.log('元素:', a);
+    console.log('下标:', b);
+    console.groupEnd();
+  };
 
   function isRepeat(arr) {
     var hash = {};
