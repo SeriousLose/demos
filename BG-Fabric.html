@@ -17,7 +17,7 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/fabric.js/4.4.0/fabric.js"></script>
 <script>
   window.onload = function () {
-    var canvas = new fabric.Canvas('canvas', { selection: false });
+    var canvas = new fabric.Canvas('canvas');
 
     var rect, isDown, origX, origY;
 
@@ -36,7 +36,7 @@
         height: pointer.y - origY,
         angle: 0,
         fill: 'rgba(255,0,0,0.5)',
-        transparentCorners: false,
+        // transparentCorners: false,
       });
       canvas.add(rect);
     });
