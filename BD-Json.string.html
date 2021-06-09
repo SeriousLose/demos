@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  const isComplexDataType = (obj) => (typeof obj === 'object' || typeof obj === 'function') && obj !== null;
+
+  const deepClone = function (obj, hash = new WeakMap()) {
+    debugger
+    if (obj.constructor === Date) return new Date(obj); // 日期对象直接返回一个新的日期对象
+    if (obj.constructor === RegExp) return new RegExp(obj); // 正则对象直接返回一个新的正则对象
+    if (hash.has(obj)) return hash.get(obj); // 如果循环引用了就用 weakMap 来解决
+    let allDesc = Object.getOwnPropertyDescriptors(obj); // 遍历传入参数所有键的特性
+    // ts报错
+    // (<any>Object).getOwnPropertyDescriptors(obj); // 遍历传入参数所有键的特性
+    // (Object as any).getOwnPropertyDescriptors(obj); // 遍历传入参数所有键的特性
+    console.log(allDesc);
+    let cloneObj = Object.create(Object.getPrototypeOf(obj), allDesc); //继承原型链
+    console.log(JSON.stringify(cloneObj));
+    hash.set(obj, cloneObj);
+    debugger
+    for (let key of Reflect.ownKeys(obj)) {
+      cloneObj[key] = isComplexDataType(obj[key]) && typeof obj[key] !== 'function' ? deepClone(obj[key], hash) : obj[key];
+    }
+    return cloneObj;
+  };
+
+
+  let aa = {
+    cc:[],
+    dd:{}
+  }
+  // let bb = deepClone(aa);
+  // let dd = JSON.stringify(bb);
+  // let ee = JSON.stringify(aa);
+  // console.log(JSON.stringify(bb.cc))
+  // console.log(dd,ee)
+
+  let ff = [1];
+  let hh = deepClone(ff);
+  console.log(hh);
+  console.log(JSON.stringify(hh))
+</script>
