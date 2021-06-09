@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      canvas {
+        border: 1px dashed black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="300" height="200"></canvas>
+  </body>
+</html>
+<script src="https://cdn.bootcdn.net/ajax/libs/fabric.js/4.4.0/fabric.js"></script>
+<script>
+  window.onload = function () {
+    var canvas = new fabric.Canvas('canvas');
+    var rect = new fabric.Rect({
+      top: 50, //距离画布上边的距离
+      left: 100, //距离画布左侧的距离，单位是像素
+      width: 100, //矩形的宽度
+      height: 70, //矩形的高度
+      fill: 'transparent', //填充的颜色
+      stroke: 'orange', // 边框原色
+      strokeWidth: 5, // 边框大小
+      rx: 8, //圆角半径
+      ry: 4, //圆角半径
+    });
+    var rectb = new fabric.Rect({
+      top: 50, //距离画布上边的距离
+      left: 100, //距离画布左侧的距离，单位是像素
+      width: 100, //矩形的宽度
+      height: 70, //矩形的高度
+      fill: 'red', //填充的颜色
+      stroke: 'orange', // 边框原色
+      strokeWidth: 5, // 边框大小
+      rx: 0, //圆角半径
+      ry: 0, //圆角半径
+    });
+
+    canvas.add(rect);
+    canvas.add(rectb);
+  };
+</script>

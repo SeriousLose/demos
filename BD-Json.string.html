@@ -20,7 +20,7 @@
     // (<any>Object).getOwnPropertyDescriptors(obj); // 遍历传入参数所有键的特性
     // (Object as any).getOwnPropertyDescriptors(obj); // 遍历传入参数所有键的特性
     console.log(allDesc);
-    let cloneObj = Object.create(Object.getPrototypeOf(obj), allDesc); //继承原型链
+    let cloneObj = Object.create(Object.getPrototypeOf(obj), allDesc); // 继承原型链
     console.log(JSON.stringify(cloneObj));
     hash.set(obj, cloneObj);
     debugger
