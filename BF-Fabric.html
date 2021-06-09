@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      canvas {
+        border: 1px dashed black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="400"></canvas>
+  </body>
+</html>
+<script src="https://cdn.bootcdn.net/ajax/libs/fabric.js/4.4.0/fabric.js"></script>
+<script>
+  window.onload = function () {
+    var canvas = new fabric.Canvas('canvas');
+    var rectangle, isDown, origX, origY;
+
+    canvas.on('mouse:down', function (o) {
+      var pointer = canvas.getPointer(o.e);
+
+      isDown = true;
+      origX = pointer.x;
+      origY = pointer.y;
+      rectangle = new fabric.Rect({
+        left: origX,
+        top: origY,
+        // width: 100, //矩形的宽度
+        // height: 70, //矩形的高度
+        fill: 'transparent', //填充的颜色
+        stroke: 'orange', // 边框原色
+        strokeWidth: 2, // 边框大小
+        rx: 0, //圆角半径
+        ry: 0, //圆角半径
+      });
+      canvas.add(rectangle);
+    });
+
+    canvas.on('mouse:move', function(o){
+    if (!isDown) return;
+    var pointer = canvas.getPointer(o.e);
+    if(origX>pointer.x){
+        rectangle.set({ left: Math.abs(pointer.x) });
+    }
+    if(origY>pointer.y){
+        rectangle.set({ top: Math.abs(pointer.y) });
+    }
+
+    rectangle.set({ width: Math.abs(origX - pointer.x) });
+    rectangle.set({ height: Math.abs(origY - pointer.y) });
+    canvas.renderAll();
+});
+
+    // canvas.on('mouse:move', function (o) {
+    //   if (!isDown) return;
+    //   var pointer = canvas.getPointer(o.e);
+    //   canvas.renderAll();
+    // });
+
+    canvas.on('mouse:up', function (o) {
+      isDown = false;
+    });
+  };
+</script>
