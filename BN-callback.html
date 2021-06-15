@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  const f1 = async () => {
+    const p = new Promise((resolv, reject) => {
+      setTimeout(() => {
+        console.log('我是异步');
+        resolv('resolv');
+      }, 2000);
+    });
+    let res = await p;
+    console.log('res', res);
+    return res;
+  };
+
+  const f2 = () => {
+    console.log('我是f2');
+  };
+
+  (async () => {
+    let bb = await f1();
+    console.log(bb);
+  })();
+  f2();
+
+  // 打印结果如下
+  // 我是f2
+  // 我是异步
+  // res reslve
+</script>
