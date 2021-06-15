@@ -60,15 +60,16 @@
       case 'P008':
         return '酒店严选';
       case 'P010':
-        return new Promise((resolve, reject) => {
-            judgeBusitrip((res) => {
+      (async()=>{
+        let aa = await judgeBusitrip((res) => {
             if (res) {
               resolve('企业差旅');
             } else {
               resolve('酒店严选');
             }
-          })
-        });
+        })
+      })()
+        return '酒店严选';
       case 'P011':
         return '云食堂';
       default:
