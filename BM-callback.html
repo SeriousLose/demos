@@ -20,7 +20,7 @@
 
   export const pText = () => {
     let p = getLocalPChannel();
-    judgeBusitrip((res)=>{
+    judgeBusitrip((res) => {
       console.log(res);
     });
     // console.log(judgeBusitrip(), '111');
@@ -34,10 +34,6 @@
         resolve(res);
       });
     });
-    getLocalStorage('islogin').then((res) => {
-      // console.log(res);
-      return res;
-    });
   };
 
   export const pText = () => {
@@ -45,5 +41,38 @@
     judgeBusitrip().then(res=>{
       console.log(res);
     });
+  };
+</script>
+
+<script>
+  import { getLocalStorage } from '@/assets/js/common/utils';
+  export const judgeBusitrip = (cb) => {
+    getLocalStorage('islogin').then((res) => {
+      cb(!!JSON.parse(res));
+    });
+  };
+
+  import { getLocalPChannel } from '@/assets/js/common/utils';
+  import { judgeBusitrip } from '@/assets/js/common/judgeBusitrip';
+  export const pText = () => {
+    let p = getLocalPChannel();
+    switch (p) {
+      case 'P008':
+        return '酒店严选';
+      case 'P010':
+        return new Promise((resolve, reject) => {
+            judgeBusitrip((res) => {
+            if (res) {
+              resolve('企业差旅');
+            } else {
+              resolve('酒店严选');
+            }
+          })
+        });
+      case 'P011':
+        return '云食堂';
+      default:
+        return '酒店严选';
+    }
   };
 </script>
