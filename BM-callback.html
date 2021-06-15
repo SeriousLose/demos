@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  import { getLocalStorage } from '@/assets/js/common/utils';
+  export const judgeBusitrip = (cb) => {
+    getLocalStorage('islogin').then((res) => {
+      // console.log(res);
+      cb(res);
+      // return res;
+    });
+  };
+
+  export const pText = () => {
+    let p = getLocalPChannel();
+    judgeBusitrip((res)=>{
+      console.log(res);
+    });
+    // console.log(judgeBusitrip(), '111');
+  };
+</script>
+<script>
+  import { getLocalStorage } from '@/assets/js/common/utils';
+  export const judgeBusitrip = () => {
+    return await new Promise((resolve, reject) => {
+      getLocalStorage('islogin').then((res) => {
+        resolve(res);
+      });
+    });
+    getLocalStorage('islogin').then((res) => {
+      // console.log(res);
+      return res;
+    });
+  };
+
+  export const pText = () => {
+    let p = getLocalPChannel();
+    judgeBusitrip().then(res=>{
+      console.log(res);
+    });
+  };
+</script>
