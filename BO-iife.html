@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+// index.html文件
+<!-- 引入的js必须有一定顺序 -->
+<script type="text/javascript" src="jquery-1.10.1.js"></script>
+<script type="text/javascript" src="module.js"></script>
+<script>
+  // module.js文件
+  (function (window, $) {
+    let data = 'www.baidu.com';
+    //操作数据的函数
+    function foo() {
+      //用于暴露有函数
+      console.log(`foo() ${data}`);
+      $('body').css('background', 'red');
+    }
+    function bar() {
+      //用于暴露有函数
+      console.log(`bar() ${data}`);
+      otherFun(); //内部调用
+    }
+    function otherFun() {
+      //内部私有的函数
+      console.log('otherFun()');
+    }
+    //暴露行为
+    window.myModule = { foo, bar };
+  })(window, jQuery);
+</script>
+<script type="text/javascript">
+  myModule.foo();
+</script>
+<script>
+  var myGradesCalculate = (function () {
+    // 在函数的作用域中下面的变量是私有的
+    var myGrades = [93, 95, 88, 0, 55, 91];
+    var average = function () {
+      var total = myGrades.reduce(function (accumulator, item) {
+        return accumulator + item;
+      }, 0);
+      return 'Your average grade is ' + total / myGrades.length + '.';
+    };
+    var failing = function () {
+      var failingGrades = myGrades.filter(function (item) {
+        return item < 70;
+      });
+      return 'You failed ' + failingGrades.length + ' times.';
+    };
+    // 将公有指针指向私有方法
+    return {
+      average: average,
+      failing: failing,
+    };
+  })();
+  myGradesCalculate.failing(); // 'You failed 2 times.'
+  myGradesCalculate.average(); // 'Your average grade is 70.33333333333333.'
+</script>
