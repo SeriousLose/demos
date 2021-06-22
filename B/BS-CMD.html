@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+  //AMD
+define(['./a','./b'], function (a, b) {
+//依赖一开始就写好
+a.test();
+b.test();
+});
+//CMD
+define(function (requie, exports, module) {
+//依赖可以就近书写
+var a = require('./a');
+a.test();
+...
+//按需加载
+if (status) {
+  var b = requie('./b');
+  b.test();
+}
+});
+</script>
