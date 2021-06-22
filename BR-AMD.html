@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  require.config({
+    //默认情况下从这个文件开始拉去取资源
+    baseUrl: 'scripts/app',
+    //如果你的依赖模块以pb头，会从scripts/pb加载模块。
+    paths: {
+      pb: '../pb',
+    },
+    // load backbone as a shim，所谓就是将没有采用requirejs方式定义
+    // 模块的东西转变为requirejs模块
+    shim: {
+      backbone: {
+        deps: ['underscore'],
+        exports: 'Backbone',
+      },
+    },
+  });
+</script>
