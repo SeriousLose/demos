@@ -64,3 +64,73 @@ export const timeFormat = (date: Date ｜ number | string, unit: string) => {
 export const timeFormat = (date: Date ｜ number | string, unit: string) => {
   // ...
 }
+
+async function printer_proxy_print(
+  html_str: string,
+  file_path: string,
+  device: string | undefined,
+  orientation: number,
+  printer_mode: string,
+  width: number,
+  height: number,
+  scale: number,
+  from: number,
+  to: number,
+  left_offset: number,
+  top_offset: number,
+  pdf_tools: string | undefined,
+  begin_page = 1,
+  end_page = 1,
+  repeat_times = 1,
+  print_type: string
+) {
+    // ...
+}
+
+async function printer_proxy_print(
+  html_str: string,
+  file_path: string,
+  device = 'pc',
+  orientation = 'xxx',
+  printer_mode = 'xxx',
+  width = 123,
+  height = 123,
+  scale = 123,
+  from = 123,
+  to = 123,
+  left_offset = 123,
+  top_offset = 123,
+  pdf_tools = 123,
+  begin_page = 1,
+  end_page = 1,
+  repeat_times = 1,
+  print_type = 'base64'
+) {
+    // ...
+}
+
+await printer_proxy_print(html_str, file_path);
+
+async function printer_proxy_print({
+  html_str,
+  file_path,
+  device = 'pc',
+  orientation = 'xxx',
+  printer_mode = 'xxx',
+  width = 123,
+  height = 123,
+  scale = 123,
+  from = 123,
+  to = 123,
+  left_offset = 123,
+  top_offset = 123,
+  pdf_tools = 123,
+  begin_page = 1,
+  end_page = 1,
+  repeat_times = 1,
+  print_type = 'base64'
+}) {
+    // ...
+}
+
+await printer_proxy_print({html_str, file_path});
