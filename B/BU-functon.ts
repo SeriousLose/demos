@@ -134,3 +134,31 @@ async function printer_proxy_print({
 }
 
 await printer_proxy_print({html_str, file_path});
+
+
+function sum(a: number, b: number) {
+  return a + b;
+}
+
+const dog = {
+  name: 'puppy',
+  age: 2,
+  weight: 30,
+}
+
+if (!dog.color) {
+  console.log('has no color');
+}
+
+function addColor(dog) {
+  dog.color = 'white';
+}
+
+addColor(dog);
+console.log(dog); // {name: "puppy", age: 2, weight: 30, color: "white"}
+
+function addColor(dog) {
+  let copyDog = Object.assign({}, dog);
+  copyDog.color = 'white';
+  return copyDog;
+}
