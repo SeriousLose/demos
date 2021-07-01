@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  var a = 1;
+  b = 1;
+
+  Object.getOwnPropertyDescriptor(this, 'a');
+  // {value: 1, writable: true, enumerable: true, configurable: false}
+
+  Object.getOwnPropertyDescriptor(this, 'b');
+  // {value: 1, writable: true, enumerable: true, configurable: true}
+</script>
