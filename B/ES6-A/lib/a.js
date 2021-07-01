@@ -9,3 +9,4 @@ export function bar3 () {
   console.log('bar3');
 }
 console.log(foo,111);
+

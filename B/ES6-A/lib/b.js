@@ -1,4 +1,5 @@
 // b.js
+'use strict'
 export let foo = 1;
 import * as a from './a';
 console.log(a);
