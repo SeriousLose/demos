@@ -9,6 +9,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
     "rollup": "^2.52.7"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
   }
 }

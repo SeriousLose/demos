@@ -1,8 +1,14 @@
-const formats = ['es', 'amd', 'cjs', 'iife', 'umd', 'system']
-export default formats.map(format => ({
+// ./rollup.config.js
+import json from '@rollup/plugin-json'
+import resolve from '@rollup/plugin-node-resolve'
+export default {
   input: 'src/index.js',
   output: {
-    file: `dist/bundle.${format}.js`,
-    format
-  }
-}))
+    file: 'dist/bundle.js',
+    format: 'es'
+  },
+  plugins: [
+    json(),
+    resolve()
+  ]
+}
