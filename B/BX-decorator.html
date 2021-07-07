@@ -136,3 +136,48 @@
   let obj = new MyClass();
   obj.foo(); // "foo"
 </script>
+<script>
+  import { autobind } from 'core-decorators';
+
+  class Person {
+    @autobind
+    getPerson() {
+      return this;
+    }
+  }
+
+  let person = new Person();
+  let getPerson = person.getPerson;
+
+  getPerson() === person;
+  // true
+
+  import { readonly } from 'core-decorators';
+
+  class Meal {
+    @readonly
+    entree = 'steak';
+  }
+
+  var dinner = new Meal();
+  dinner.entree = 'salmon';
+  // Cannot assign to read only property 'entree' of [object Object]
+
+  import { deprecate } from 'core-decorators';
+
+  class Person {
+    @deprecate
+    facepalm() {}
+
+    @deprecate('功能废除了')
+    facepalmHard() {}
+  }
+
+  let person = new Person();
+
+  person.facepalm();
+  // DEPRECATION Person#facepalm: This function will be removed in future versions.
+
+  person.facepalmHard();
+  // DEPRECATION Person#facepalmHard: 功能废除了
+</script>
