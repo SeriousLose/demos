@@ -19,3 +19,42 @@
 
   soldier.AK; // true
 </script>
+<script>
+  @decorator
+  class A {}
+
+  // 等同于
+
+  class A {}
+  A = decorator(A) || A;
+</script>
+<script>
+  @testable
+  class MyTestableClass {
+    // ...
+  }
+
+  function testable(target) {
+    target.isTestable = true;
+  }
+
+  MyTestableClass.isTestable; // true
+</script>
+<script>
+  function testable(isTestable) {
+    return function (target) {
+      target.isTestable = isTestable;
+    };
+  }
+
+  @testable(true)
+  class MyTestableClass {}
+  MyTestableClass.isTestable; // true
+
+  @testable(false)
+  class MyClass {}
+  MyClass.isTestable; // false
+</script>
+<script>
+
+</script>
