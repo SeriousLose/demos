@@ -56,5 +56,83 @@
   MyClass.isTestable; // false
 </script>
 <script>
+  function readonly(target, name, descriptor) {
+    descriptor.writable = false; // 将可写属性设为false
+    return descriptor;
+  }
 
+  class Person {
+    @readonly
+    name() {
+      return `${this.first} ${this.last}`;
+    }
+  }
+
+  readonly(Person.prototype, 'name', descriptor);
+
+  function dec(id) {
+    console.log('evaluated', id);
+    return (target, property, descriptor) => console.log('executed', id);
+  }
+
+  class Example {
+    @dec(1)
+    @dec(2)
+    method() {}
+  }
+  // evaluated 1
+  // evaluated 2
+  // executed 2
+  // executed 1
+</script>
+
+<script>
+  var counter = 0;
+
+  var add = function () {
+    counter++;
+  };
+
+  @add
+  function foo() {}
+
+  var counter;
+
+  var add;
+
+  @add
+  function foo() {}
+
+  counter = 0;
+
+  add = function () {
+    counter++;
+  };
+</script>
+<script>
+  class MyReactComponent extends React.Component {}
+
+  export default connect(mapStateToProps, mapDispatchToProps)(MyReactComponent);
+
+  @connect(mapStateToProps, mapDispatchToProps)
+  export default class MyReactComponent extends React.Component {}
+
+  function mixins(...list) {
+    return function (target) {
+      Object.assign(target.prototype, ...list);
+    };
+  }
+
+  // 使用
+  const Foo = {
+    foo() {
+      console.log('foo');
+    },
+  };
+
+  @mixins(Foo)
+  class MyClass {}
+
+  let obj = new MyClass();
+  obj.foo(); // "foo"
 </script>
