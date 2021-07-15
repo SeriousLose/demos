@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  // add(1)(2)(3)
+
+  function add(a) {
+    var num = function (b) {
+      a = a + b;
+      return num;
+    };
+    num.valueOf = num.toString = function () {
+      return a;
+    };
+    //当引用类型需要转为字符串时，自动调用toString方法
+    //当引用类型需要转为数字时，自动调用valueOf方法
+    return num;
+  }
+
+  const curry_add = (...a) => {
+    let num = a.reduce((t, c) => t + c, 0);
+    const item = (...b) => {
+      num = num + b.reduce((t, c) => t + c, 0);
+      return item;
+    };
+    item.toString = () => num;
+    return item;
+  };
+</script>
