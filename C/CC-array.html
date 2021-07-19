@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  a = [1, 2, 3];
+  b = [2, 4, 5];
+  // 并集
+  let union = a.concat(b.filter((v) => !a.includes(v))); // [1,2,3,4,5]
+  // 交集
+  let intersection = a.filter((v) => b.includes(v)); // [2]
+  // 差集
+  let difference = a.concat(b).filter((v) => a.includes(v) && !b.includes(v)); // [1,3]
+</script>
+<script>
+  let aSet = new Set(a);
+  let bSet = new Set(b);
+
+  // 并集
+  let union = Array.from(new Set(a.concat(b))); // [1,2,3,4,5]
+  console.log(union);
+
+  // 交集
+  let intersection = Array.from(
+    new Set(a.filter((v) => bSet.has(v))) // [2]
+  );
+
+  // 差集
+  let differenceNew = Array.from(new Set(a.concat(b).filter((v) => aSet.has(v) && !bSet.has(v)))[(1, 3)]);
+  console.log(differenceNew);
+</script>
+<script>
+  var a = [1, 2, 3];
+  var b = [2, 4, 5];
+
+  // 并集
+  var union = a.concat(
+    b.filter(function (v) {
+      return a.indexOf(v) === -1;
+    })
+  ); // [1,2,3,4,5]
+
+  // 交集
+  var intersection = a.filter(function (v) {
+    return b.indexOf(v) > -1;
+  }); // [2]
+
+  // 差集
+  var difference = a.filter(function (v) {
+    return b.indexOf(v) === -1;
+  }); // [1,3]
+
+  console.log(union);
+  console.log(intersection);
+  console.log(difference);
+</script>
+<script>
+  var a = [1, 2, 3, NaN];
+  var b = [2, 4, 5];
+
+  var aHasNaN = a.some(function (v) {
+    return isNaN(v);
+  });
+  var bHasNaN = b.some(function (v) {
+    return isNaN(v);
+  });
+
+  // 并集
+  var union = a.concat(
+      b.filter(function (v) {
+        return a.indexOf(v) === -1 && !isNaN(v);
+      })).concat(!aHasNaN & bHasNaN ? [NaN] : []); // [1,2,3,4,5,NaN]
+
+  // 交集
+  var intersection = a.filter(function (v) {
+      return b.indexOf(v) > -1;
+    }).concat(aHasNaN & bHasNaN ? [NaN] : []); // [2]
+
+  // 差集
+  var difference = a.filter(function (v) {
+      return b.indexOf(v) === -1 && !isNaN(v);
+    }).concat(aHasNaN && !bHasNaN ? [NaN] : []); //1,3,NaN
+
+  console.log(union);
+  console.log(intersection);
+  console.log(difference);
+</script>
