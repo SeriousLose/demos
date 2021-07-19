@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  Number.prototype.add = function (number) {
+    if (typeof number !== 'number') {
+      throw new Error('请输入数字～');
+    }
+    return this.valueOf() + number;
+  };
+  Number.prototype.minus = function (number) {
+    if (typeof number !== 'number') {
+      throw new Error('请输入数字～');
+    }
+    return this.valueOf() - number;
+  };
+  console.log((5).add(3).minus(2));
+</script>
+
+<script>
+  /**
+   * @description: 每一个方法执行完都要返回一个 Number 这个类的实例，这样才可以继续调取
+   *               Number 类原型中的方法（链式写法）
+   * @param {type}
+   * @return:
+   */
+  ~(function () {
+    // 检测参数
+    function check(n) {
+      n = Number(n);
+      return isNaN(n) ? 0 : n;
+    }
+
+    function add(n) {
+      n = check(n);
+      return this + n;
+    }
+
+    function minus(n) {
+      n = check(n);
+      return this - n;
+    }
+
+    ['add', 'minus'].forEach((item) => {
+      Number.prototype[item] = eval(item); // eval 将字符串转换成 js 表达式
+    });
+  })();
+
+  // 因为数字在 JS 里不能单纯作为一个变量开头，所以这里不能直接用数字 5 开头,而是用小括号括起来;
+  // 想执行链式操作，必须在第一次执行完以后再返回执行完的值。
+  (5).add(3).minus(2);
+</script>
