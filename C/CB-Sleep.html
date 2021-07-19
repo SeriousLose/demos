@@ -40,6 +40,11 @@
 
 <!-- <script>
   function sleep(millis) {
+    var notifier = NjsRuntime.createNotifier();
+    setTimeout(notifier, millis);
+    notifier.wait->();
+  }
+  function sleep(millis) {
     var njf1 = njen(this, arguments, 'millis');
     nj: while (1) {
       try {
