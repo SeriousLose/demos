@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<!-- <script>
+  console.log('start...');
+  console.log('now time: ' + Date(/\d{10,10}/.exec(Date.now())));
+  function sleep(sleepTime) {
+    for (var start = Date.now(); Date.now() - start <= sleepTime; ) {}
+  }
+  sleep(5000); // sleep 5 seconds
+  console.log('end...');
+  console.log('end time: ' + Date(/\d{10,10}/.exec(Date.now())));
+</script> -->
+
+<!-- <script>
+  function sleep(sleepTime) {
+    var now = new Date();
+    var exitTime = now.getTime() + sleepTime;
+    while (true) {
+      now = new Date();
+      if (now.getTime() > exitTime) return;
+    }
+  }
+</script> -->
+
+<!-- <script>
+  function sleep(timeout) {
+    window.showModalDialog("javascript:document.writeln('<script>window.setTimeout(function () { window.close(); }, " + timeout + ");<\/script>');");
+  }
+  window.alert('before sleep ...');
+  sleep(2000);
+  window.alert('after sleep ...');
+</script> -->
+
+<!-- <script>
+  function sleep(millis) {
+    var njf1 = njen(this, arguments, 'millis');
+    nj: while (1) {
+      try {
+        switch (njf1.cp) {
+          case 0:
+            njf1._notifier = NjsRuntime.createNotifier();
+            setTimeout(njf1._notifier, njf1._millis);
+            njf1.cp = 1;
+            njf1._notifier.wait(njf1);
+            return;
+          case 1:
+            break nj;
+        }
+      } catch (ex) {
+        if (!njf1.except(ex, 1)) return;
+      }
+    }
+    njf1.pf();
+  }
+</script> -->
+
+<!-- <script>
+  function sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
+  // 用法
+  sleep(500).then(() => {
+    // 这里写sleep之后需要去做的事情
+  });
+</script> -->
+
+<!-- <script>
+  function sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
+  (async function () {
+    console.log('Do some thing, ' + new Date());
+    await sleep(3000);
+    console.log('Do other things, ' + new Date());
+  })();
+</script> -->
+
+<script>
+  function Sleep(obj, iMinSecond) {
+    if (window.eventList == null) window.eventList = new Array();
+    var ind = -1;
+    for (var i = 0; i < window.eventList.length; i++) {
+      if (window.eventList[i] == null) {
+        window.eventList[i] = obj;
+        ind = i;
+        break;
+      }
+    }
+    if (ind == -1) {
+      ind = window.eventList.length;
+      window.eventList[ind] = obj;
+    }
+    setTimeout('GoOn(' + ind + ')', iMinSecond);
+  }
+
+
+  function GoOn(ind) {
+    var obj = window.eventList[ind];
+    window.eventList[ind] = null;
+    if (obj.NextStep) obj.NextStep();
+    else obj();
+  }
+
+
+  function Test() {
+    console.log('sleep');
+    Sleep(this, 10000);
+    this.NextStep = function () {
+      alert('continue');
+    };
+  }
+
+  Test();
+</script>
