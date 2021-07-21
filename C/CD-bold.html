@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+
+  /**
+   * @description: Base64 to Blob
+   * @param {type} Base64字符串
+   * @return: Blob
+   */
+  function dataURLtoBlob(dataURL) {
+    var mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0]; // mime类型
+    var byteString = atob(dataURL.split(',')[1]); // base64 解码
+    var arrayBuffer = new ArrayBuffer(byteString.length); // 创建缓冲数组
+    var intArray = new Uint8Array(arrayBuffer); // 创建视图
+
+    for (var i = 0; i < byteString.length; i++) {
+      intArray[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([intArray], { type: mimeString });
+  }
+
+  /**
+   * @description: blob -> base64
+   * @param {type}
+   * @return:
+   */
+  function blobToDataURL(blob, callback) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      callback(e.target.result);
+    };
+    reader.readAsDataURL(blob);
+  }
+</script>
