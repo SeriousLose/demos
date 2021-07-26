@@ -18,7 +18,6 @@
     let xmlStr = new XMLSerializer();
     let xml = xmlStr.serializeToString(long);
     console.log(xml);
-    // let data = 'data:image/svg+xml; charset=UTF-8';
     let dom = `data:image/svg+xml;charset=utf-8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <style>
         polygon { fill: black }
