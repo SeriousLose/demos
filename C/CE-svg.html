@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body onload="load()">
+    <div id="long">
+      <span>1111</span>
+      <h1>222222</h1>
+      hello SeriousLose</div>
+  </body>
+</html>
+<script>
+  function load() {
+    let long = document.getElementById('long');
+    let xmlStr = new XMLSerializer();
+    let xml = xmlStr.serializeToString(long);
+    console.log(xml);
+    // let data = 'data:image/svg+xml; charset=UTF-8';
+    let dom = `data:image/svg+xml;charset=utf-8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <style>
+        polygon { fill: black }
+
+        div {
+          color: white;
+          font:12px serif;
+          height: 100%;
+          overflow: auto;
+        }
+      </style>
+
+      <polygon points="5,5 195,10 185,185 10,195" />
+
+      <!-- Common use case: embed HTML text into SVG -->
+      <foreignObject x="20" y="20" width="160" height="160">
+      ${xml}
+      </foreignObject>
+    </svg>`;
+
+    let img = new Image();
+    img.src = dom;
+    document.body.appendChild(img);
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      ctx.drawImage(img, 0, 0);
+      canvas.toBlob(function (blob) {
+        let url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.href = url;
+        a.download = 'image';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }, 'image/png');
+    };
+  }
+</script>
