@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  /**
+    * @description: 数组去重
+    * @param {type}
+    */
+  const removeDuplicateItems = arr => [...new Set(arr)];
+
+  /**
+   * @description: 随机数生成
+   * @param {type}
+   * @return:
+   */
+  function randomNumber(ary, quantity) {
+    let i = ary.length || 0;
+    let ary = [];
+    if(i == 0){
+      return ary;
+    }
+    for (let i = 0; i <= quantity; ) {
+      const randomIndex = Math.floor(Math.random() * (i + 1));
+      ary = removeDuplicateItems(ary.push(randomIndex));
+      i = ary.length;
+    }
+  }
+</script>
