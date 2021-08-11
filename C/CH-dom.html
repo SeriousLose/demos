@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">真实DOM</div>
+</body>
+
+</html>
+<script>
+  let element = document.querySelector("#app");
+  let s = [];
+  for (var key in element) {
+    s.push(key);
+  }
+  console.log(element)
+  console.log(s.join())
+
+  let virtualDOM = {
+    sel: "div",
+    data: {},
+    children: undefined,
+    text: "虚拟DOM",
+    elm: undefined,
+    key: undefined
+  }
+</script>
