@@ -113,6 +113,7 @@ export function init(modules: Array<Partial<Module>>, domApi?: DOMAPI) {
   }
 
   function createRmCb(childElm: Node, listeners: number) {
+    // 返回删除元素的回调函数;
     return function rmCb() {
       if (--listeners === 0) {
         const parent = api.parentNode(childElm) as Node;
@@ -211,8 +212,11 @@ export function init(modules: Array<Partial<Module>>, domApi?: DOMAPI) {
   function invokeDestroyHook(vnode: VNode) {
     const data = vnode.data;
     if (data !== undefined) {
+      // 执行用户设置的destroy 钩子函数
       data?.hook?.destroy?.(vnode);
+      // 调用模块的destroy钩子函数
       for (let i = 0; i < cbs.destroy.length; ++i) cbs.destroy[i](vnode);
+      // 执行子节点的destroy钩子函数
       if (vnode.children !== undefined) {
         for (let j = 0; j < vnode.children.length; ++j) {
           const child = vnode.children[j];
@@ -235,19 +239,26 @@ export function init(modules: Array<Partial<Module>>, domApi?: DOMAPI) {
       let rm: () => void;
       const ch = vnodes[startIdx];
       if (ch != null) {
+        // 如果sel有值
         if (isDef(ch.sel)) {
+          // 执行destroy钩子函数,(会执行所有子节点的destroy钩子函数)
           invokeDestroyHook(ch);
+          // 防止删除方法多次执行
           listeners = cbs.remove.length + 1;
+          // 创建删除的回调函数
           rm = createRmCb(ch.elm!, listeners);
           for (let i = 0; i < cbs.remove.length; ++i) cbs.remove[i](ch, rm);
+          // 执行用户设置的remove钩子函数
           const removeHook = ch?.data?.hook?.remove;
           if (isDef(removeHook)) {
             removeHook(ch, rm);
           } else {
+            // 如果没有用户钩子函数,直接调用删除元素的方法
             rm();
           }
         } else {
           // Text node
+          // 如果是文本节点,直接调用删除方法
           api.removeChild(parentElm, ch.elm!);
         }
       }
