@@ -18,7 +18,16 @@ let patch = init([]);
 // 第一个参数 标签+选择器
 // 第二个参数 如果是字符串,就是标签中的内容
 // 返回值 VNode
-let VNode = h('div#container.cls-name','hello SeriousLose');
+let VNode = h('div#container.cls-name', {
+  hook: {
+    init: function (vnode) {
+      console.log(vnode);
+    },
+    create: function (empty, vnode) {
+      console.log(empty, vnode);
+    }
+  }
+}, 'hello SeriousLose');
 
 // 获取app DOM
 let app = document.querySelector("#app");
@@ -27,10 +36,10 @@ let app = document.querySelector("#app");
 // 第一个参数: 如果是DOM元素,内部会把DOM元素转换成VNode
 // 第二个参数: VNode
 // 返回值 VNode
-let oldVNode = patch(app,VNode);
+let oldVNode = patch(app, VNode);
 
 // 模拟接口获取数据
 setTimeout(() => {
-  VNode = h('div','hello SeriousLose ,你好 snabbdom');
-  oldVNode = patch(oldVNode,VNode);
+  VNode = h('div', 'hello SeriousLose ,你好 snabbdom');
+  oldVNode = patch(oldVNode, VNode);
 }, 1000);

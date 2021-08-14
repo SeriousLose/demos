@@ -81,10 +81,15 @@ export function init(modules: Array<Partial<Module>>, domApi?: DOMAPI) {
   // 把传入的所有模块的钩子函数,统一存储到cbs对象中;
   // 最终构建的cbs 对象的形式cbs = {creat:[fn1,fn2],update:[],...}
   for (i = 0; i < hooks.length; ++i) {
+    // cbs.create = [],cbs.update=[].....
     cbs[hooks[i]] = [];
     for (j = 0; j < modules.length; ++j) {
+      // modules传入的模块数组
+      // 获取模块中的hook函数
+      // hook = modules[0][create].....
       const hook = modules[j][hooks[i]];
       if (hook !== undefined) {
+        // 把获取到的hook函数放入到cbs 对应的钩子函数数组中
         (cbs[hooks[i]] as any[]).push(hook);
       }
     }
@@ -120,29 +125,34 @@ export function init(modules: Array<Partial<Module>>, domApi?: DOMAPI) {
     let i: any;
     let data = vnode.data;
     if (data !== undefined) {
-      const init = data.hook?.init;
+      // 执行用户设置的init钩子函数
+      const init = data.hook?.init; // 用户传递的init函数
       if (isDef(init)) {
-        init(vnode);
-        data = vnode.data;
+        init(vnode); // 调用init后,可能改变vnode的内容
+        data = vnode.data; // 所以再次进行赋值;
       }
     }
+    // 把vnode转换成真实DOM对象(没有渲染到页面)
     const children = vnode.children;
     const sel = vnode.sel;
     if (sel === "!") {
+      //  注释节点
       if (isUndef(vnode.text)) {
         vnode.text = "";
       }
       vnode.elm = api.createComment(vnode.text!);
     } else if (sel !== undefined) {
+      // 如果选择器不为空
+      // 解析选择器
       // Parse selector
-      const hashIdx = sel.indexOf("#");
-      const dotIdx = sel.indexOf(".", hashIdx);
+      const hashIdx = sel.indexOf("#"); // #位置
+      const dotIdx = sel.indexOf(".", hashIdx); // .的位置
       const hash = hashIdx > 0 ? hashIdx : sel.length;
       const dot = dotIdx > 0 ? dotIdx : sel.length;
       const tag =
         hashIdx !== -1 || dotIdx !== -1
           ? sel.slice(0, Math.min(hash, dot))
-          : sel;
+          : sel; // 标签名
       const elm = (vnode.elm =
         isDef(data) && isDef((i = data.ns))
           ? api.createElementNS(i, tag, data)
@@ -150,27 +160,35 @@ export function init(modules: Array<Partial<Module>>, domApi?: DOMAPI) {
       if (hash < dot) elm.setAttribute("id", sel.slice(hash + 1, dot));
       if (dotIdx > 0)
         elm.setAttribute("class", sel.slice(dot + 1).replace(/\./g, " "));
+      // 执行模块的create钩子函数
       for (i = 0; i < cbs.create.length; ++i) cbs.create[i](emptyNode, vnode);
+      // 如果vnode中有子节点,创建子vnode对应的DOM元素并追加到DOM树上;
       if (is.array(children)) {
         for (i = 0; i < children.length; ++i) {
           const ch = children[i];
           if (ch != null) {
+            // 如果子节点不为空,递归调用子节点,追加在对应父节点上
             api.appendChild(elm, createElm(ch as VNode, insertedVnodeQueue));
           }
         }
       } else if (is.primitive(vnode.text)) {
+        // 如果vnode的text值是 string/number,创建文本节点并追加到 DOM树上
         api.appendChild(elm, api.createTextNode(vnode.text));
       }
       const hook = vnode.data!.hook;
       if (isDef(hook)) {
+        // 执行用户传入的钩子 create
         hook.create?.(emptyNode, vnode);
         if (hook.insert) {
+          // 把vnode 添加到队列中,为后续执行insert钩子做准备
           insertedVnodeQueue.push(vnode);
         }
       }
     } else {
+      // 选择器为空,创建文本节点
       vnode.elm = api.createTextNode(vnode.text!);
     }
+    // 返回新创建的DOM
     return vnode.elm;
   }
 
@@ -374,31 +392,42 @@ export function init(modules: Array<Partial<Module>>, domApi?: DOMAPI) {
   // return 一个函数 ,这个函数是一个高阶函数
   return function patch(oldVnode: VNode | Element, vnode: VNode): VNode {
     let i: number, elm: Node, parent: Node;
+    // 保存新插入节点的队列,为了触发钩子函数
     const insertedVnodeQueue: VNodeQueue = [];
+    // 执行模块的pre钩子函数
     for (i = 0; i < cbs.pre.length; ++i) cbs.pre[i]();
 
+    // 如果oldVnode 不是VNode,创建VNode并设置elm
     if (!isVnode(oldVnode)) {
+      // 把DOM元素转化成空的VNode
       oldVnode = emptyNodeAt(oldVnode);
     }
-
+    // 如果新旧节点是相同节点(key 和 sel相同)
     if (sameVnode(oldVnode, vnode)) {
+      // 找节点的差异并更新DOM
       patchVnode(oldVnode, vnode, insertedVnodeQueue);
     } else {
-      elm = oldVnode.elm!;
-      parent = api.parentNode(elm) as Node;
-
+      // 如果新旧节点不同,vnode创建对应的DOM
+      // 获取当前的DOM元素
+      elm = oldVnode.elm!; // !表示必定存在
+      parent = api.parentNode(elm) as Node; // 找到父级元素
+      // 创建 vnode对应的DOM元素,并触发init/create钩子函数;
       createElm(vnode, insertedVnodeQueue);
 
       if (parent !== null) {
+        // 如果父节点不为空,把vnode对应的DOM插入到文档中
         api.insertBefore(parent, vnode.elm!, api.nextSibling(elm));
+        // 移出老节点
         removeVnodes(parent, [oldVnode], 0, 0);
       }
     }
-
+    // 执行用户设置的insert钩子函数
     for (i = 0; i < insertedVnodeQueue.length; ++i) {
       insertedVnodeQueue[i].data!.hook!.insert!(insertedVnodeQueue[i]);
     }
+    // 执行模块的post钩子函数
     for (i = 0; i < cbs.post.length; ++i) cbs.post[i]();
+    // 返回vnode
     return vnode;
   };
 }
