@@ -363,39 +363,57 @@ export function init(modules: Array<Partial<Module>>, domApi?: DOMAPI) {
     }
   }
 
+  // 对比新旧节点,vnode渲染成真实dom,并返回vnode
   function patchVnode(
     oldVnode: VNode,
     vnode: VNode,
     insertedVnodeQueue: VNodeQueue
   ) {
     const hook = vnode.data?.hook;
+    // 首先执行用户设置的 prepatch钩子函数;
     hook?.prepatch?.(oldVnode, vnode);
     const elm = (vnode.elm = oldVnode.elm)!;
     const oldCh = oldVnode.children as VNode[];
     const ch = vnode.children as VNode[];
+    // 如果新老 vnode相同直接返回
     if (oldVnode === vnode) return;
     if (vnode.data !== undefined) {
+      // 执行模块的update钩子函数
       for (let i = 0; i < cbs.update.length; ++i)
         cbs.update[i](oldVnode, vnode);
+      // 执行用户设置的update钩子函数
       vnode.data.hook?.update?.(oldVnode, vnode);
     }
+    // 如果 vnode.text未定义
     if (isUndef(vnode.text)) {
+      // 如果新老节点都有 children
       if (isDef(oldCh) && isDef(ch)) {
+        // 使用diff算法对比子节点,更新子节点
         if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue);
       } else if (isDef(ch)) {
+        // 如果新节点有children,老节点没有children
+        // 如果老节点有text,清空dom元素的内容
         if (isDef(oldVnode.text)) api.setTextContent(elm, "");
+        // 批量添加子节点
         addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);
       } else if (isDef(oldCh)) {
+        // 如果老节点有children,新节点没有children
+        // 批量移出子节点
         removeVnodes(elm, oldCh, 0, oldCh.length - 1);
       } else if (isDef(oldVnode.text)) {
+        // 如果老节点有text,情况DOM元素
         api.setTextContent(elm, "");
       }
     } else if (oldVnode.text !== vnode.text) {
+      // 如果没有设置vnode.text
       if (isDef(oldCh)) {
+        // 如果老节点有 children,移出
         removeVnodes(elm, oldCh, 0, oldCh.length - 1);
       }
+      // 设置DOM元素的textContent 为 vnode.text
       api.setTextContent(elm, vnode.text!);
     }
+    // 最后执行用户设置的postpatch钩子函数
     hook?.postpatch?.(oldVnode, vnode);
   }
 
