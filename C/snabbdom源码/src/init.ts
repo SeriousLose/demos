@@ -1,8 +1,11 @@
+import { DOMAPI, htmlDomApi } from "./htmldomapi";
+import * as is from "./is";
 import { Module } from "./modules/module";
 import { vnode, VNode } from "./vnode";
-import * as is from "./is";
-import { htmlDomApi, DOMAPI } from "./htmldomapi";
+// 导入依赖的模块
 
+
+// 定义类型
 type NonUndefined<T> = T extends undefined ? never : T;
 
 function isUndef(s: any): boolean {
@@ -51,6 +54,7 @@ function createKeyToOldIdx(
   return map;
 }
 
+// 定义了钩子函数
 const hooks: Array<keyof Module> = [
   "create",
   "update",
@@ -71,9 +75,11 @@ export function init(modules: Array<Partial<Module>>, domApi?: DOMAPI) {
     pre: [],
     post: [],
   };
-
+  // 初始化转化虚拟节点的api
   const api: DOMAPI = domApi !== undefined ? domApi : htmlDomApi;
 
+  // 把传入的所有模块的钩子函数,统一存储到cbs对象中;
+  // 最终构建的cbs 对象的形式cbs = {creat:[fn1,fn2],update:[],...}
   for (i = 0; i < hooks.length; ++i) {
     cbs[hooks[i]] = [];
     for (j = 0; j < modules.length; ++j) {
@@ -364,6 +370,8 @@ export function init(modules: Array<Partial<Module>>, domApi?: DOMAPI) {
     hook?.postpatch?.(oldVnode, vnode);
   }
 
+  // init内部返回patch函数,把vnode渲染成真实的dom,并返回vnode
+  // return 一个函数 ,这个函数是一个高阶函数
   return function patch(oldVnode: VNode | Element, vnode: VNode): VNode {
     let i: number, elm: Node, parent: Node;
     const insertedVnodeQueue: VNodeQueue = [];
