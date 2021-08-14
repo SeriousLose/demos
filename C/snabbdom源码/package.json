@@ -1,0 +1,143 @@
+{
+  "_from": "snabbdom",
+  "_id": "snabbdom@3.0.3",
+  "_inBundle": false,
+  "_integrity": "sha512-+HEwNccHj1lTKx3I7vKm7La+FhhcJFJloPkmPE0pwYQFq6aZSx2SCJrUKotD/+L8kA+EHcXRmBe5Yd2LX1WlQQ==",
+  "_location": "/snabbdom",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "snabbdom",
+    "name": "snabbdom",
+    "escapedName": "snabbdom",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://repo.huaweicloud.com/repository/npm/snabbdom/-/snabbdom-3.0.3.tgz",
+  "_shasum": "13ff22fbdd1c971ace1af55d4831bdb4972aafd0",
+  "_spec": "snabbdom",
+  "_where": "/Users/helongfei/Desktop/code/Github/demos/C/snabbdom",
+  "author": {
+    "name": "Simon Friis Vindum"
+  },
+  "bugs": {
+    "url": "https://github.com/snabbdom/snabbdom/issues"
+  },
+  "bundleDependencies": false,
+  "commithelper": {
+    "scopeOverrides": {
+      "chore": [
+        "tools",
+        "refactor",
+        "release",
+        "test",
+        "deps",
+        "docs",
+        "examples"
+      ]
+    }
+  },
+  "deprecated": false,
+  "description": "A virtual DOM library with focus on simplicity, modularity, powerful features and performance.",
+  "devDependencies": {
+    "@release-it/conventional-changelog": "^2.0.1",
+    "@types/chai": "4.2.18",
+    "@types/faker": "5.5.5",
+    "@types/lodash.shuffle": "4.2.6",
+    "@types/mathjs": "9.3.2",
+    "@types/mocha": "8.2.2",
+    "@typescript-eslint/eslint-plugin": "4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "benchmark": "2.1.4",
+    "chai": "4.3.4",
+    "chalk": "4.1.1",
+    "commithelper": "^1.1.1",
+    "conventional-changelog-angular": "^5.0.12",
+    "core-js": "3.13.1",
+    "cross-env": "7.0.3",
+    "eslint": "7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "2.23.4",
+    "eslint-plugin-markdown": "2.2.0",
+    "eslint-plugin-node": "11.1.0",
+    "faker": "5.5.3",
+    "husky": "6.0.0",
+    "karma": "6.3.2",
+    "karma-browserstack-launcher": "1.6.0",
+    "karma-chrome-launcher": "3.1.0",
+    "karma-firefox-launcher": "2.1.0",
+    "karma-mocha": "2.0.1",
+    "karma-mocha-reporter": "2.2.5",
+    "karma-typescript": "^5.5.1",
+    "latest-snabbdom-release": "npm:snabbdom@2.1.0",
+    "lint-staged": "^11.0.0",
+    "lodash.shuffle": "4.2.0",
+    "mathjs": "9.4.1",
+    "mocha": "8.4.0",
+    "p-map-series": "3.0.0",
+    "p-reduce": "3.0.0",
+    "prettier": "^2.3.0",
+    "release-it": "^14.7.0",
+    "rollup": "^2.50.4",
+    "tty-table": "4.1.3",
+    "typescript": "4.3.2"
+  },
+  "engines": {
+    "node": ">=8.3.0"
+  },
+  "homepage": "https://github.com/snabbdom/snabbdom#readme",
+  "keywords": [
+    "virtual",
+    "dom",
+    "light",
+    "kiss",
+    "performance"
+  ],
+  "license": "MIT",
+  "lint-staged": {
+    "*.(ts|tsx|js|md)": "prettier --write"
+  },
+  "main": "build/snabbdom.cjs.js",
+  "module": "build/index.js",
+  "name": "snabbdom",
+  "prettier": {},
+  "release-it": {
+    "git": {
+      "commitMessage": "chore(release): v${version}"
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular",
+        "infile": "CHANGELOG.md"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snabbdom/snabbdom.git"
+  },
+  "scripts": {
+    "benchmark": "cross-env FILES_PATTERN=\"test-bundles/benchmark/**/*.js\" karma start karma.conf.cjs --concurrency=1",
+    "build": "tsc && npm run bundle:cjs",
+    "bundle:cjs": "rollup build/index.js --format cjs --file build/snabbdom.cjs.js",
+    "format": "prettier --write .",
+    "lint": "eslint --ext .ts,.tsx,.js --ignore-path .gitignore .",
+    "prepare": "husky install",
+    "release": "npm run test && release-it",
+    "test": "npm run build && npm run lint && npm run unit",
+    "test:ci": "npm test && cross-env ES5=true npm run unit",
+    "unit": "cross-env FILES_PATTERN=\"test/unit/*.ts,test/unit/*.tsx\" karma start karma.conf.js"
+  },
+  "sideEffects": false,
+  "types": "build/index.d.ts",
+  "version": "3.0.3"
+}
