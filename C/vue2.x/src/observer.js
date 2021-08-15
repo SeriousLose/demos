@@ -19,10 +19,10 @@ class Observer {
   // 为啥要传值 val 这个参数?
   // 如果返回 data[key] 会出现递归调用,导致内存泄露
   defineReactive (data, key, val) {
-
-    // const that = this
+    const that = this; // this 为observer实例;
     // 如果 val 是对象，继续设置它下面的成员为响应式数据
-    // this.walk(val)
+    // 解决  data 中对象, 设置为响应式数据
+    this.walk(val)
     Object.defineProperty(data, key, {
       configurable: true, // 可枚举
       enumerable: true, // 可配置
@@ -37,7 +37,11 @@ class Observer {
           return
         }
         // 如果 newValue 是对象，设置 newValue 的成员为响应式
-        // that.walk(newValue)
+        // 如果新赋值的是对象,也设置为响应式
+        that.walk(newValue)
+        // this.walk(newValue)
+        // 该this指向 data对象,并无walk方法
+
         val = newValue
       }
     })
