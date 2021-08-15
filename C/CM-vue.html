@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.js"></script>
+<script>
+  let vm = new Vue();
+  vm.$on('dataChange', () => {
+    console.log('dataChange');
+  });
+  vm.$on('dataChange', () => {
+    console.log('dataChange1');
+  });
+  vm.$emit('dataChange');
+</script>
+<script>
+  // eventBus.js
+  // 事件中心
+  let eventHub = new Vue()
+
+  // ComponentA.vue
+  // 发布者
+  addTodo: function () {
+      // 发布消息(事件)
+      eventHub.$emit('add-todo', { text: this.newTodoText })
+      this.newTodoText = ''
+  }
+
+  // ComponentB.vue
+  // 订阅者
+  created: function () {
+      // 订阅消息(事件)
+      eventHub.$on('add-todo', this.addTodo)
+  }
+</script>
