@@ -18,23 +18,3 @@
   });
   vm.$emit('dataChange');
 </script>
-<script>
-  // eventBus.js
-  // 事件中心
-  let eventHub = new Vue()
-
-  // ComponentA.vue
-  // 发布者
-  addTodo: function () {
-      // 发布消息(事件)
-      eventHub.$emit('add-todo', { text: this.newTodoText })
-      this.newTodoText = ''
-  }
-
-  // ComponentB.vue
-  // 订阅者
-  created: function () {
-      // 订阅消息(事件)
-      eventHub.$on('add-todo', this.addTodo)
-  }
-</script>

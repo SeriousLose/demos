@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  class EventEmitter {
+    constructor() {
+      // { eventType: [ handler1, handler2 ] }
+      this.subs = {};
+    }
+    // 订阅通知
+    $on(eventType, handler) {
+      this.subs[eventType] = this.subs[eventType] || [];
+      this.subs[eventType].push(handler);
+    }
+    // 发布通知
+    $emit(eventType) {
+      if (this.subs[eventType]) {
+        this.subs[eventType].forEach((handler) => {
+          handler();
+        });
+      }
+    }
+  }
+
+  // 测试
+  var bus = new EventEmitter();
+  // 注册事件
+  bus.$on('click', function () {
+    console.log('click');
+  });
+  bus.$on('click', function () {
+    console.log('click1');
+  });
+  // 触发事件
+  bus.$emit('click');
+</script>
