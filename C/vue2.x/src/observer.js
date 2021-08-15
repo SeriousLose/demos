@@ -19,7 +19,10 @@ class Observer {
   // 为啥要传值 val 这个参数?
   // 如果返回 data[key] 会出现递归调用,导致内存泄露
   defineReactive (data, key, val) {
+
+    const dep = new Dep() // 负责收集依赖,并发送通知
     const that = this; // this 为observer实例;
+
     // 如果 val 是对象，继续设置它下面的成员为响应式数据
     // 解决  data 中对象, 设置为响应式数据
     this.walk(val)
@@ -29,6 +32,9 @@ class Observer {
 
       // data 就是上边的data,get方法在外层有引用,形成闭包
       get () {
+        // get 的过程中收集依赖
+        Dep.target && dep.addSub(Dep.target)
+
         // return data[key]  // 如果返回这个,会递归调用
         return val // 打断点可查看
       },
@@ -42,7 +48,10 @@ class Observer {
         // this.walk(newValue)
         // 该this指向 data对象,并无walk方法
 
-        val = newValue
+        val = newValue;
+
+        // 当数据变化之后，发送通知
+        dep.notify()
       }
     })
   }
