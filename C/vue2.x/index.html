@@ -18,6 +18,8 @@
     </div>
   </body>
 </html>
+<!-- 注意引用顺序 -->
+<script src="./src/observer.js"></script>
 <script src="./src/vue.js"></script>
 <script>
   let vm = new Vue({
@@ -25,6 +27,11 @@
     data: {
       msg: 'hello seriousLose',
       count: 100,
+      person: {
+        name: 'fei',
+      },
     },
   });
+  console.log(vm);
+  console.log(vm.msg);
 </script>

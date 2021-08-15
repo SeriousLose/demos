@@ -5,11 +5,13 @@ class Vue {
     this.$data = options.data || {}
     const el = options.el;
     this.$el = typeof options.el === 'string' ? document.querySelector(el) : el
+
     // 2. 把data的成员转化为getter和setter,并 data 注入到 Vue 实例
     this._proxyData(this.$data)
 
     // 3. 负责调用 Observer 实现数据劫持,监听数据的变化
-    // new Observer(this.$data)
+    new Observer(this.$data)
+
     // 4. 负责调用 Compiler 解析指令/插值表达式等
     // new Compiler(this)
   }
