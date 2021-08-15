@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
+<script>
+  let data = {
+    msg: 'hello long',
+    cont: 1,
+  };
+  // 模拟Vue的实例
+  let vm = {};
+  proxyData(data);
+  function proxyData(data) {
+    // 遍历data对象的所有属性
+    Object.keys(data).forEach((key) => {
+      Object.defineProperty(vm, key, {
+        // 可枚举(可遍历)
+        enumerable: true,
+        // 可配置(可以使用delete删除,可以通过defineProperty重新定义)
+        configurable: true,
+        // 当获取值的时候执行
+        get() {
+          console.log('get:', data[key]);
+          return data.msg;
+        },
+        // 当设置值的时候执行
+        set(newValue) {
+          console.log('set:', newValue);
+          if (newValue === data[key]) {
+            return;
+          }
+          data[key] = newValue;
+          // 数据更改,更新DOM的值
+          document.querySelector('#app').textContent = data[key];
+        },
+      });
+    });
+  }
+
+  vm.msg = 'hello seriousLose';
+  console.log(vm.msg);
+</script>
