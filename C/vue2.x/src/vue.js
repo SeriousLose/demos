@@ -13,7 +13,7 @@ class Vue {
     new Observer(this.$data)
 
     // 4. 负责调用 Compiler 解析指令/插值表达式等
-    // new Compiler(this)
+    new Compiler(this)
   }
   _proxyData (data) {
     // 遍历 data 的所有属性
