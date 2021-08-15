@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">hello long</div>
+  </body>
+</html>
+<script>
+  let data = {
+    msg: 'hello long',
+  };
+  // 模拟Vue的实例
+  let vm = {};
+
+  Object.defineProperty(vm, 'msg', {
+    // 可枚举(可遍历)
+    enumerable: true,
+    // 可配置(可以使用delete删除,可以通过defineProperty重新定义)
+    configurable: true,
+    // 当获取值的时候执行
+    get() {
+      console.log('get:', data.msg);
+      return data.msg;
+    },
+    // 当设置值的时候执行
+    set(newValue){
+      console.log('set:',newValue)
+      if(newValue === data.msg){
+        return
+      }
+      data.msg = newValue
+      // 数据更改,更新DOM的值
+      document.querySelector('#app').textContent = data.msg;
+    }
+  });
+  vm.msg = 'hello seriousLose'
+  console.log(vm.msg);
+</script>
