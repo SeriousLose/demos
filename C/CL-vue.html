@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
+<script>
+  let data = {
+    msg: 'hello 小飞飞',
+    count: 0,
+  };
+  // 模拟Vue实例
+  let vm = new Proxy(data, {
+    // 执行代理行为的函数
+    // 当访问vm的成员会执行
+    get(target, key) {
+      console.log('get,key:', key, target, target[key]);
+      return target[key];
+    },
+    // 当设置 vm 的成员会执行
+    set(target, key, newValue) {
+      console.log('set,key:', key, newValue);
+      if (target[key] === newValue) {
+        return;
+      }
+      target[key] = newValue;
+      document.querySelector('#app').textContent = target[key];
+    },
+  });
+  vm.msg = 'Hello World , SeriousLose';
+  console.log(vm, vm.msg);
+</script>
