@@ -1,0 +1,78 @@
+<template>
+  <div class="auth-page">
+    <div class="container page">
+      <div class="row">
+
+        <div class="col-md-6 offset-md-3 col-xs-12">
+          <h1 class="text-xs-center">{{ isLogin ? 'Sign in': 'Sign up'}}</h1>
+          <p class="text-xs-center">
+            <!-- <a href="">Have an account?</a> -->
+            <nuxt-link v-if="isLogin" to="/register">Need an account?</nuxt-link>
+            <nuxt-link v-else to='/login'>Have an account?</nuxt-link>
+          </p>
+
+          <ul class="error-messages">
+            <li>That email is already taken</li>
+          </ul>
+
+          <form>
+            <fieldset class="form-group" v-if="!isLogin">
+              <input class="form-control form-control-lg" type="text" placeholder="Your Name">
+            </fieldset>
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg" type="text" placeholder="Email">
+            </fieldset>
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg" type="password" placeholder="Password">
+            </fieldset>
+            <button class="btn btn-lg btn-primary pull-xs-right">
+              {{ isLogin ? 'Sign in': 'Sign up'}}
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'LoginPage',
+  components: {},
+  // 定义属性
+  data () {
+    return {}
+  },
+  // 计算属性，会监听依赖属性值随之变化
+  computed: {
+    isLogin () {
+      return this.$route.name === 'login';
+    }
+  },
+  // 监控data中的数据变化
+  watch: {},
+  // 方法集合
+  methods: {
+
+  },
+  // 生命周期 - 创建完成（可以访问当前this实例）
+  created () {
+
+  },
+  // 生命周期 - 挂载完成（可以访问DOM元素）
+  mounted () {
+
+  },
+  beforeCreate () { }, // 生命周期 - 创建之前
+  beforeMount () { }, // 生命周期 - 挂载之前
+  beforeUpdate () { }, // 生命周期 - 更新之前
+  updated () { }, // 生命周期 - 更新之后
+  beforeDestroy () { }, // 生命周期 - 销毁之前
+  destroyed () { }, // 生命周期 - 销毁完成
+  activated () { }, // 如果页面有keep-alive缓存功能，这个函数会触发
+}
+</script>
+
+<style lang='stylus' scoped></style>
