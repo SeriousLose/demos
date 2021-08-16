@@ -40,17 +40,20 @@ class Compiler {
   }
 
   // 编译文本节点
+  // 在 compiler.js(即Compiler类) 中为每一个指令/插值表达式创建 watcher 对象，监视数据的变化
   compileText (node) {
-    const reg = /\{\{(.+)\}\}/
-    // 获取文本节点的内容
+    const reg = /\{\{(.+?)\}\}/
     const value = node.textContent
     if (reg.test(value)) {
-      // 插值表达式中的值就是我们要的属性名称
       const key = RegExp.$1.trim()
-      // 把插值表达式替换成具体的值
       node.textContent = value.replace(reg, this.vm[key])
+      // 编译差值表达式中创建一个 watcher，观察数据的变化
+      new Watcher(this.vm, key, newValue => {
+        node.textContent = newValue
+      })
     }
   }
+
 
   // 编译属性节点
   compileElement (node) {
@@ -75,15 +78,33 @@ class Compiler {
   update (node, key, dir) {
     // node 节点，key 数据的属性名称，dir 指令的后半部分
     const updaterFn = this[dir + 'Updater']
-    updaterFn && updaterFn(node, this.vm[key])
+    // updaterFn && updaterFn(node, this.vm[key])
+    // 因为在 textUpdater等中要使用 this
+    updaterFn && updaterFn.call(this, node, this.vm[key], key)
   }
 
+
   // v-text 指令的更新方法
-  textUpdater (node, value) {
+  textUpdater (node, value, key) {
     node.textContent = value
+    // 每一个指令中创建一个 watcher，观察数据的变化
+    new Watcher(this.vm, key, value => {
+      node.textContent = value
+    })
   }
+
+  // 视图变化更新数据
   // v-model 指令的更新方法
-  modelUpdater (node, value) {
+  modelUpdater (node, value, key) {
     node.value = value
+    // 每一个指令中创建一个 watcher，观察数据的变化
+    new Watcher(this.vm, key, value => {
+      node.value = value
+    })
+    // 监听视图的变化 ,实现双向绑定
+    node.addEventListener('input', () => {
+      this.vm[key] = node.value
+    })
   }
+
 }
