@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "cookieparser": "^0.1.0",
+    "js-cookie": "^3.0.0",
     "nuxt": "^2.15.8"
   }
 }

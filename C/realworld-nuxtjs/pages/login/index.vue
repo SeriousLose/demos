@@ -12,12 +12,15 @@
           </p>
 
           <ul class="error-messages">
+            <template v-for="(messages, field) in errors">
+              <li v-for="(message, index) in messages" :key="index">{{field}} {{message}}</li>
+            </template>
             <li>That email is already taken</li>
           </ul>
 
           <form @submit.prevent="onSubmit">
             <fieldset class="form-group" v-if="!isLogin">
-              <input class="form-control form-control-lg" type="text" placeholder="Your Name">
+              <input v-model="user.username" class="form-control form-control-lg" type="text" placeholder="Your Name">
             </fieldset>
             <fieldset class="form-group">
               <input required v-model="user.email" class="form-control form-control-lg" type="email" placeholder="Email">
@@ -38,7 +41,10 @@
 
 <script>
 
-import request from '../../utils/request'
+import { login, register } from '../api/user'
+// 仅在客户端加载
+const Cookie = process.client ? require('js-cookie') : undefined
+
 
 export default {
   name: 'LoginPage',
@@ -47,8 +53,14 @@ export default {
   data () {
     return {
       user: {
+        username: '',
         email: '',
         password: ''
+      },
+      errors: {
+        // email: ['a', 'b'],
+        // password: ['1', '2']
+
       }
     }
   },
@@ -63,14 +75,22 @@ export default {
   // 方法集合
   methods: {
     async onSubmit () {
-      const { data } = await request({
-        method: 'POST',
-        url: '/api/users/login',
-        data:{
-          user:this.user
-        }
-      })
-      console.log(data);
+      try {
+        const { data } = this.isLogin ?
+          await login({
+            user: this.user
+          }) :
+          await register({
+            user: this.user
+          })
+
+        this.$store.commit('setUser', data.user) // mutating to store for client rendering
+        Cookie.set('user', data.user) // sa
+      } catch (error) {
+        console.dir(error)
+        this.errors = error.response.data.errors
+      }
+
 
       // TODO:保存用户的登录状态
 

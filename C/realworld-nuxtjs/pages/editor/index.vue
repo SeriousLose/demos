@@ -34,6 +34,7 @@
 <script>
 
 export default {
+  middleware: 'authenticated',
   name: '',
   components: {},
   // 定义属性
