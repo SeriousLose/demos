@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <image mode="aspectFit" src="https://supershoper.xxynet.com/vsvz1631674286717"></image>
+    <button style="margin-top: 10px" onclick="savePic()">保存到本地</button>
+    <button style="margin-top: 10px" onclick="downLoadBlob()">保存到本地</button>
+  </body>
+</html>
+<script>
+  function savePic(Url) {
+    // Url = this.dialogImgUrl // 图片路径，也可以传值进来
+    Url =
+      'data:image/jpg;base64,/9j/4AAQSkZJRgABAgAAEAAJAAD//gAQTGF2YzU4LjE4LjEwMAD/2wBDAAgEBAQEBAUFBQUFBQYGBgYGBgYGBgYGBgYHBwcICAgHBwcGBgcHCAgICAkJCQgICAgJCQoKCgwMCwsODg4RERT/xACQAAADAQEBAQEAAAAAAAAAAAAEBQMCBwYBCAEAAgMBAQAAAAAAAAAAAAAAAgQGBQMAARAAAgEDBAAEBAUCBwEAAAAAAQIDBAARIQUGEjETIgdRFEEIYlKSYRaBoZEyM3IjccEXEQABBAECBAUDBQEAAAAAAAABAAIDEQQSIQVBMRMGcSPBIjJSFKGRYYKBFf/AABEIAFAAUAMBIgACEQADEQD/2gAMAwEAAhEDEQA/AOWMmIv6WuqYtTbR3ATBsKdNbyB3V3lsDmikA0V4KEWWyXho7IOSbol0f2E5jSUVFuPHd07SwVEvlUI8fJmrY5OuPgPmIkA+DTE2b7obpJsPBK3b42NPWbhXrt9dDkCVEGZmDgagMiFcH6MfjfmPZDYKvfufbfS0wB8l6fcZc40ioauCVzqR4LnGMn9rI90t6q+Q0S7jMyMlbyrk0sWEVW6w/KIvZhqyhZAEBJ6648bj+XwyCTxhFpa3QTDmZA5Ol+XbFVR1dtzz/LUzFlPbhOi2PpmMG9xvtty+PNeEK6XN7MeL02NKmtyIHdJysLQpDxsmIaXBRrdo2wL5DH1TH5gMuDeC9h+eRdYpu3jYFtJtuT3DRKt0BF5MV0jGl0Eeb8tH29Qte8+2OGT/AOg7jIg9UXG92Yf7i1Oo/ubE9zuOHYeEcLTuswk3DkcnmqD1cy/IE4yNQCrAH64zfp/tPoE/kfIq5x/pbdT0w+GJ6ju2v7+UBj662y+5njCbVwLiyxM0i7buU8BfrgEVcTNrjONUAH/V0OXnuPjDHibs2OfGikP3dzFmLP2c+v8AVmdLJXQn6naCPJrX37LhzL6LFljNneXm8yU2mbkANLpYC8JaUIv6Dd5osXBlxZWl3MLFh2vcEmovMi6XONurXxCBri14TimYFRZC2vpZsAWZDMGvMt3VhBK1zQOa7/8AbRsQouFTbkyhW3PcJWLEY/4KMeWDn8vfuf8AG2nuPUbV7m+0G9V21kzRxxVFTCGA7rNt0jFwQCcN1Usv4WHxvPHZP419v+1SU5CVFRskUMB8MVG6SN68/hMxcn6Bbj7MbJWUvEeQbdWlWjnrq2mRBny8JAKaYqCB6XcfDXFw3jMjsX87iT5Kn/62PNEy9zEyXS0D+gB8lm4dwy5nTsztjaOTgNnfpS/PcUGcXqaHC2WKXyWdPyMyfpJH/lxq9Bcy1XuOe6eMDWRk0lVQupsSQWbUeJsOSyCrskCysSppYzelrOkXIsSZbNLzMoqlPNizIZdQbWI2LKppNRYkI8eUggLrux8v5ly7a+McPo2T5SLb4miUINPlYnjeWRwO2I+rYGf8xv3O3bhV8VTadqinjWLboJKmolkkbruBdJWqGBIBZkLN1VsHJ7a4vnnsnzLbdlWppKkRQ1zIYduq5WCR+TPIGnpmdtEPceZGSQGyyk+Fvec84oaXZazbY5YaivqR5StF1dYYZOyyStIrMFk8v0Kg1y/bwFxfiuBkZPFWYLMP0Q/VemxI59j8jUbBaxjqo9DatoI2yRBpY3T1oDqT9TiPdc+lbszv9XZn/USbCq9c3aacAWO79rkjRS0yXt06Ql9SuM2FN42wrcDNrpjrZtVXlCiVs6rY8y3cNpcpRZhYy/IIbGDdqY+oXhlvcGjC/Cs49nhPtrI6izZGwulrdufAFmSyem8z1V1iyVjjyUJ6jBuYnuVS/quXfAv0N2S0051laq5u1gSt43WeTNjObICknky6iV//2Q==';
+    var triggerEvent = 'touchstart'; //指定下载方式
+    var blob = new Blob([''], { type: 'application/octet-stream' }); // 二进制大型对象blob
+    // var url = URL.createObjectURL(blob); // 创建一个字符串路径空位
+    var a = document.createElement('a'); // 创建一个 a 标签
+    a.href = Url; //把路径赋到a标签的href上
+    //正则表达式，这里是把图片文件名分离出来。拿到文件名赋到a.download,作为文件名来使用文本
+    a.download = Url.replace(/(.*\/)*([^.]+.*)/gi, '$2').split('?')[0];
+    /* var e = document.createEvent('MouseEvents');  //创建事件（MouseEvents鼠标事件）
+      e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); //初始化鼠标事件（initMouseEvent已弃用）*/
+
+    // 代替方法。创建鼠标事件并初始化（后面这些参数我也不清楚，参考文档吧 https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/MouseEvent）
+    var e = new MouseEvent('click', (true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null));
+    // 派遣后，它将不再执行任何操作。执行保存到本地
+    a.dispatchEvent(e);
+    // 释放一个已经存在的路径（有创建createObjectURL就要释放revokeObjectURL）
+    // URL.revokeObjectURL(url);
+  }
+
+  function downLoadBlob() {
+    const link = document.createElement('a');
+    link.style.display = 'none';
+    const url =
+      'data:image/jpg;base64,/9j/4AAQSkZJRgABAgAAEAAJAAD//gAQTGF2YzU4LjE4LjEwMAD/2wBDAAgEBAQEBAUFBQUFBQYGBgYGBgYGBgYGBgYHBwcICAgHBwcGBgcHCAgICAkJCQgICAgJCQoKCgwMCwsODg4RERT/xACQAAADAQEBAQEAAAAAAAAAAAAEBQMCBwYBCAEAAgMBAQAAAAAAAAAAAAAAAgQGBQMAARAAAgEDBAAEBAUCBwEAAAAAAQIDBAARIQUGEjETIgdRFEEIYlKSYRaBoZEyM3IjccEXEQABBAECBAUDBQEAAAAAAAABAAIDEQQSIQVBMRMGcSPBIjJSFKGRYYKBFf/AABEIAFAAUAMBIgACEQADEQD/2gAMAwEAAhEDEQA/AOWMmIv6WuqYtTbR3ATBsKdNbyB3V3lsDmikA0V4KEWWyXho7IOSbol0f2E5jSUVFuPHd07SwVEvlUI8fJmrY5OuPgPmIkA+DTE2b7obpJsPBK3b42NPWbhXrt9dDkCVEGZmDgagMiFcH6MfjfmPZDYKvfufbfS0wB8l6fcZc40ioauCVzqR4LnGMn9rI90t6q+Q0S7jMyMlbyrk0sWEVW6w/KIvZhqyhZAEBJ6648bj+XwyCTxhFpa3QTDmZA5Ol+XbFVR1dtzz/LUzFlPbhOi2PpmMG9xvtty+PNeEK6XN7MeL02NKmtyIHdJysLQpDxsmIaXBRrdo2wL5DH1TH5gMuDeC9h+eRdYpu3jYFtJtuT3DRKt0BF5MV0jGl0Eeb8tH29Qte8+2OGT/AOg7jIg9UXG92Yf7i1Oo/ubE9zuOHYeEcLTuswk3DkcnmqD1cy/IE4yNQCrAH64zfp/tPoE/kfIq5x/pbdT0w+GJ6ju2v7+UBj662y+5njCbVwLiyxM0i7buU8BfrgEVcTNrjONUAH/V0OXnuPjDHibs2OfGikP3dzFmLP2c+v8AVmdLJXQn6naCPJrX37LhzL6LFljNneXm8yU2mbkANLpYC8JaUIv6Dd5osXBlxZWl3MLFh2vcEmovMi6XONurXxCBri14TimYFRZC2vpZsAWZDMGvMt3VhBK1zQOa7/8AbRsQouFTbkyhW3PcJWLEY/4KMeWDn8vfuf8AG2nuPUbV7m+0G9V21kzRxxVFTCGA7rNt0jFwQCcN1Usv4WHxvPHZP419v+1SU5CVFRskUMB8MVG6SN68/hMxcn6Bbj7MbJWUvEeQbdWlWjnrq2mRBny8JAKaYqCB6XcfDXFw3jMjsX87iT5Kn/62PNEy9zEyXS0D+gB8lm4dwy5nTsztjaOTgNnfpS/PcUGcXqaHC2WKXyWdPyMyfpJH/lxq9Bcy1XuOe6eMDWRk0lVQupsSQWbUeJsOSyCrskCysSppYzelrOkXIsSZbNLzMoqlPNizIZdQbWI2LKppNRYkI8eUggLrux8v5ly7a+McPo2T5SLb4miUINPlYnjeWRwO2I+rYGf8xv3O3bhV8VTadqinjWLboJKmolkkbruBdJWqGBIBZkLN1VsHJ7a4vnnsnzLbdlWppKkRQ1zIYduq5WCR+TPIGnpmdtEPceZGSQGyyk+Fvec84oaXZazbY5YaivqR5StF1dYYZOyyStIrMFk8v0Kg1y/bwFxfiuBkZPFWYLMP0Q/VemxI59j8jUbBaxjqo9DatoI2yRBpY3T1oDqT9TiPdc+lbszv9XZn/USbCq9c3aacAWO79rkjRS0yXt06Ql9SuM2FN42wrcDNrpjrZtVXlCiVs6rY8y3cNpcpRZhYy/IIbGDdqY+oXhlvcGjC/Cs49nhPtrI6izZGwulrdufAFmSyem8z1V1iyVjjyUJ6jBuYnuVS/quXfAv0N2S0051laq5u1gSt43WeTNjObICknky6iV//2Q==';
+    link.href = url;
+    const fileName = url.replace(/(.*\/)*([^.]+.*)/gi, '$2').split('?')[0];
+    link.setAttribute('download', fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+</script>
