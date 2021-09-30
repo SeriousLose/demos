@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>边框0.5px实现方法</title>
+    <style type="text/css">
+      .container {
+        width: 500px;
+        margin: 0px auto;
+      }
+      .border-all {
+        position: relative;
+        padding: 10px;
+      }
+
+      .border-all:after {
+        content: '  ';
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        width: 200%;
+        height: 200%;
+        border: 1px solid #f00;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scale(0.5, 0.5);
+        transform: scale(0.5, 0.5);
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h3>拓展：四周全是0.5px的线条的话</h3>
+      <div class="border-all">
+        这是实现一个盒子四周0.5px的做法，
+        如果加入border-radius圆角效果，会发现，有些手机会有圆角发虚的情况，不过影响不是很大。如果有两个盒子，上面一个盒子没有边框效果，下面盒子有边框效果，两个盒子一样宽，上下在一起的布局方式，你会发现，在手机上有时候会对不齐…
+        错开了0.5px，原因已经很明了了…还有那个z-index ，可以根据不同需求来调整使用，如果可以的话，不使用也是可以的。
+      </div>
+    </div>
+  </body>
+</html>
