@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  //返回一个promise和abort方法
+  function getPromise() {
+    let _res, _rej;
+    const promise = new Promise((resolve, reject) => {
+      _res = resolve;
+      _rej = reject;
+      setTimeout(() => {
+        resolve('123');
+      }, 5000);
+    });
+    return {
+      promise,
+      abort: () => {
+        _rej({
+          name: 'abort',
+          message: 'the promise is aborted',
+          aborted: true,
+        });
+      },
+    };
+  }
+  const { promise, abort } = getPromise();
+  promise.then(console.log).catch((e) => {
+    console.log(e);
+  });
+  abort();
+</script>
+
+<script>
+  function getPromise(cb) {
+    let _res, _rej;
+    const promise = new Promise((res, rej) => {
+      _res = res;
+      _rej = rej;
+      cb && cb(res, rej);
+    });
+    return {
+      promise,
+      abort: () => {
+        _rej({
+          name: 'abort',
+          message: 'the promise is aborted',
+          aborted: true,
+        });
+      },
+    };
+  }
+  // 主逻辑提取出来
+  function runCb(resolve, reject) {
+    setTimeout(() => {
+      resolve('1111');
+    }, 3000);
+  }
+  const { promise, abort } = getPromise(runCb);
+  promise.then(console.log).catch((e) => {
+    console.log(e);
+  });
+</script>
