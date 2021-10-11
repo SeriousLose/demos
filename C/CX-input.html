@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" list="itemlist" name="" onkeyup="inputKeyup(event)" />
+    <datalist id="itemlist">
+      <option>item1</option>
+      <option>item2</option>
+    </datalist>
+  </body>
+</html>
+<script>
+  function inputKeyup($event) {
+    console.log($event);
+    document.getElementById('itemlist').innerHTML = `<option>item1</option>
+    <option>item12</option>
+    <option>item123</option>
+    <option>item24</option>`;
+  }
+</script>
