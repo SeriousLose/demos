@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script>
+      function inputSelect() {
+        var input_select = $('#input').val();
+        var option_length = $('option').length;
+        var option_id = '';
+        for (var i = 0; i < option_length; i++) {
+          var option_value = $('option').eq(i).attr('data-value');
+          if (input_select == option_value) {
+            option_id = $('option').eq(i).attr('data-id');
+            break;
+          }
+        }
+        console.log(input_select, option_length, option_id);
+      }
+    </script>
+    <input list="cars" id="input" onchange="inputSelect()" />
+    <datalist id="cars">
+      <option value="111" data-value="111" data-id="1"></option>
+      <option value="122" data-value="122" data-id="2"></option>
+      <option value="1222" data-value="1222" data-id="4"></option>
+    </datalist>
+  </body>
+</html>

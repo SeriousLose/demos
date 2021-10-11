@@ -6,19 +6,26 @@
     <title>Document</title>
   </head>
   <body>
-    <input type="text" list="itemlist" name="" onkeyup="inputKeyup(event)" />
-    <datalist id="itemlist">
-      <option data-id="1">item1</option>
-      <option data-id="2">item2</option>
+    <input type="text" list="itemlist" name="" onkeyup="inputKeyup(event)" onchange="inputChange(event)" />
+    <datalist id="itemlist" (click)="dataListClick(event)">
+      <option data-id="1" value="item1"></option>
+      <option data-id="2" value="item2"></option>
     </datalist>
   </body>
 </html>
 <script>
   function inputKeyup($event) {
-    console.log($event);
+    console.log(event.target);
     document.getElementById('itemlist').innerHTML = `<option>item1</option>
     <option>item12</option>
     <option>item123</option>
     <option>item24</option>`;
   }
+  function inputChange($event) {
+    console.log(event.target);
+  }
+
+  itemlist.addEventListener('click', function () {
+    alert('这是第二中点击方式');
+  });
 </script>
