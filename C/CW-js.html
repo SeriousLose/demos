@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="zero2one"></div>
+  </body>
+</html>
+<script>
+  let obj = {
+    part1: {
+      name: 'SeriousLose',
+      age: 18,
+    },
+  };
+
+  // 解构
+  const {
+    part1: { name, age },
+  } = obj;
+  // 使用
+  console.log(name, age); // SeriousLose  18
+
+  // .... 省略
+
+  const {
+    part1: { name, age },
+  } = obj;
+  console.log(part1); // Uncaught ReferenceError: part1 is not defined
+
+  const {
+    part1: { name, age },
+    part1,
+  } = obj;
+  console.log(part1); // {name: "SeriousLose", age: 18}
+</script>
+<script>
+  const myMoney = 1000000000000;
+
+  const myMoney = 1_000_000_000_000;
+  console.log(myMoney); // 1000000000000
+</script>
+<script>
+  console.log(zero2one);
+</script>
+
+<script>
+  function firstFunction() {
+    secondFunction();
+  }
+  function secondFunction() {
+    thridFunction();
+  }
+  function thridFunction() {
+    console.log(new Error().stack);
+  }
+
+  firstFunction();
+
+  //=> Error
+  //  at thridFunction (<anonymous>:2:17)
+  //  at secondFunction (<anonymous>:5:5)
+  //  at firstFunction (<anonymous>:8:5)
+  //  at <anonymous>:10:1
+</script>
+
+<script>
+  function demo() {
+    return 1;
+    console.log('我是零一');
+    return 2;
+  }
+  console.log(demo()); // 1
+</script>
+
+<script>
+  function demo() {
+    try {
+      return 1;
+    } catch (err) {
+      console.log(err);
+      return 2;
+    } finally {
+      return 3;
+    }
+  }
+  console.log(demo()); // 3
+</script>
+<script>
+  function demo() {
+    try {
+      return 1;
+    } catch (err) {
+      console.log(err);
+      return 2;
+    } finally {
+      try {
+        return 3;
+      } finally {
+        return 4;
+      }
+    }
+  }
+
+  console.log(demo()); // 返回 4
+</script>
+<script>
+
+function hash () {
+  let s = ''
+  const strs = [
+    'a', 'b', 'c', 'd', 'e', 'f', 'g',
+    'h', 'i', 'j', 'k', 'l', 'm', 'n',
+    'o', 'p', 'q', 'r', 's', 't', 'u',
+    'v', 'w', 'x', 'y', 'z', '0', '1',
+    '2', '3', '4', '5', '6', '7', '8',
+    '9',
+  ]
+  for(let i = 0; i < 10; i++) {
+    s += strs[Math.floor(Math.random() * strs.length)]
+  }
+  return s
+}
+
+hash()  // 'www7v2if9r'
+
+const str = Math.random().toString(36).substr(2, 10);
+console.log(str);   // 'w5jetivt7e'
+</script>
