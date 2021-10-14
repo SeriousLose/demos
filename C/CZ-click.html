@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        li{
+            list-style: none;
+            height: 30px;
+            width: 80px;
+            text-align: center;
+            line-height: 30px;
+            border-top: 1px solid rgb(187, 181, 181);
+        }
+        .mydiv{
+            margin:20px auto;
+            width: 400px;
+            height: 300px;
+            background-color: rgb(170, 238, 232);
+            position: relative;
+        }
+        .mydiv ul{
+            width: 80px;
+            height: 150px;
+            background-color: rgb(206, 195, 247);
+            position: absolute;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mydiv">
+        <ul class="myul">
+            <li>菜单1</li>
+            <li>菜单2</li>
+            <li>菜单3</li>
+            <li>菜单4</li>
+            <li>菜单5</li>
+        </ul>
+    </div>
+
+    <script>
+        let mydiv=document.querySelector('.mydiv');
+        let myul=document.querySelector('.myul');
+
+        mydiv.addEventListener('contextmenu',fn);
+            //contextmenu右键
+        function fn(e){
+            e.preventDefault();//preventDefault()阻止默认事件（这里阻止了默认菜单）
+            myul.style.display='block';//点击右键菜单显示出来
+            let X=e.pageX - this.offsetLeft;
+            let Y=e.pageY - this.offsetTop;
+            myul.style.left=X+'px';
+            myul.style.top=Y+'px';
+        }
+        window.onclick=function(event){
+            if(event.target.tagName=='LI'){
+                //如果点击到 LI（菜单）就停止执行return之后的代码，菜单就不会隐藏
+                return;
+            }
+            myul.style.display='none'
+            //如果点击菜单外的任意位置，菜单被隐藏
+        }
+    </script>
+</body>
+</html>
