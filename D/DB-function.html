@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  const cache = {}; // 模拟缓存
+  // 不要在函数中嵌入缓存逻辑
+  const func = (key) => {
+    if (key in cache === false) {
+      const value = key + key; // 逻辑处理
+      cache[key] = value;
+    }
+    return cache[key];
+  };
+  func('aa');
+  func('aa');
+</script>
+<script>
+  // 创建一个帮助程序来处理缓存
+  const withCache = (func) => (key) => {
+    if (key in cache === false) {
+      cache[key] = func(key);
+    }
+    return cache[key];
+  };
+  const action = (key) => key + key;
+  const cachedAction = withCache(action);
+  cachedAction('aa');
+  cachedAction('aa');
+</script>
