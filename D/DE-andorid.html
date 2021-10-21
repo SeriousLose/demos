@@ -10,11 +10,15 @@
 <script>
   // 修改ua使得web端正确判断
 
-  // 这种方式是尾部添加的，也可以
-  String ua = webview.getSettings().getUserAgentString();
-  webview.getSettings().setUserAgentString(ua+"; SeriousLose"+appversion);
+  // // 这种方式是尾部添加的，也可以
+  // String ua = webview.getSettings().getUserAgentString();
+  // webview.getSettings().setUserAgentString(ua+"; SeriousLose"+appversion);
 
-  // 采用替换的方式
-  String ua = webView.getSettings().getUserAgentString();
-  webView.getSettings().setUserAgentString(ua.replace("Android", "SeriousLose Android"));
+  // // 采用替换的方式
+  // String ua = webView.getSettings().getUserAgentString();
+  // webView.getSettings().setUserAgentString(ua.replace("Android", "SeriousLose Android"));
+</script>
+<script>
+  let userAgent = navigator.userAgent.toLowerCase(); // 获取userAgent
+  let isInApp = userAgent.indexOf('appId') >= 0; // 查询是否有相关app的相关字段
 </script>
