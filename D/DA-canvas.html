@@ -6,11 +6,11 @@
     <title>Document</title>
   </head>
   <body>
-    <!-- <canvas id="myCanvas"></canvas> -->
-    <canvas id="myCanvas1"></canvas>
+    <canvas id="myCanvas"></canvas>
+    <!-- <canvas id="myCanvas1"></canvas> -->
   </body>
 </html>
-<!-- <script>
+<script>
   var canvas = document.getElementById('myCanvas');
   var ctx = canvas.getContext('2d');
   var img = new Image();
@@ -29,15 +29,16 @@
       ctx.fillText('周杰伦', 300, i);
       ctx.fillText('周杰伦', 600, i);
     }
-
-    //此时画布上已经有了水印的信息，我们获取水印的各个像素的信息
+    // 此时画布上已经有了水印的信息，我们获取水印的各个像素的信息
     textData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-    //将图片绘入画布
+    // 将图片绘入画布
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    //获取图片各个像素点的信息，将originalData打印出来，会发现是一个非常大的数组（由于文字和图片在同一块画布，因此textData的长度等于originalData长度）
-    //这个数组的长度等于图片width*height*4，即图片像素宽乘以高乘以4，0-3位是第一个点的RGBA值，第4-7位是第二个点的RGBA值，以此类推
+
+    // 获取图片各个像素点的信息，将originalData打印出来，会发现是一个非常大的数组（由于文字和图片在同一块画布，因此textData的长度等于originalData长度）
+    // 这个数组的长度等于图片width*height*4，即图片像素宽乘以高乘以4，0-3位是第一个点的RGBA值，第4-7位是第二个点的RGBA值，以此类推
+
     originalData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-    //调用盲水印算法
+    // 调用盲水印算法
     mergeData(ctx, textData, 'R', originalData);
   };
 
@@ -81,9 +82,9 @@
     //至此，整个图片中所有包含水印信息的点的R值都是奇数，没有水印信息的点的R值都是偶数，再将图片绘入画布，即完成整个水印添加过程
     ctx.putImageData(originalData, 0, 0);
   }
-</script> -->
+</script>
 
-<script>
+<!-- <script>
   var canvas = document.getElementById('myCanvas1');
   var ctx = canvas.getContext('2d');
   var img = new Image();
@@ -123,4 +124,4 @@
     // 至此，带有水印信息的点都将展示为255,0,0   而没有水印信息的点将展示为0,0,0  将结果绘制到画布
     ctx.putImageData(originalData, 0, 0);
   }
-</script>
+</script> -->
