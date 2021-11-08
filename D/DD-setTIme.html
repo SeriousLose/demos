@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    搜索<input type="text" id="myinput" />
+    <button id="mybtn">提交</button>
+  </body>
+</html>
+<script>
+  function search() {
+    console.log('去请求接口'); //先请求接口数据
+  }
+  //防抖
+  function debounce(fn, time) {
+    let timer = null;
+    return function () {
+      //执行之前，先判断是否有定时器，有就先清除，保证只有一个定时器
+      if (timer) {
+        clearTimeout(timer); //清除定时器
+      }
+      //在用户输入时，如果停顿了2s，就去调数据
+      timer = setTimeout(() => {
+        fn(); //触发事件
+        timer = null; //定时器的使用（自定义规范）
+      }, time); //触发时间（2s或.....）
+    };
+  }
+  function btn() {
+    console.log('去提交'); //提交数据
+  }
+
+  //节流
+  function throttle(fn, time) {
+    //连续触发事件  规定的时间
+    let flag = false;
+    return function () {
+      //使用标识判断是否在规定的时间内重复触发了函数，没有就触发，有就不触发
+      if (!flag) {
+        //不为假时 执行以下
+        fn(); //触发事件
+        flag = true; //为真
+        setTimeout(() => {
+          //超时调用（在规定的时间内只执行一次）
+          flag = false;
+        }, time);
+      }
+    };
+  }
+  myinput.onkeyup = debounce(search, 3000); //键盘弹起触发 防抖(search,2s时间)
+  mybtn.onclick = throttle(btn, 3000); //单击事件   节流(btn,3s时间)
+</script>
