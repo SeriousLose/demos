@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  function setInterval(fn, a, b) {
+    this.a = a;
+    this.b = b;
+    this.time = 0;
+    this.handle = null;
+    this.start = () => {
+      this.handle = setTimeout(() => {
+        fn();
+        console.log(this.time + 1, '次', '执行时间', this.a + this.time * this.b);
+        this.time++;
+        this.start();
+      }, this.a + this.time * this.b);
+    };
+    this.start();
+    this.end = () => {
+      clearTimeout(this.handle);
+      this.time = 0;
+      console.log('清除定时器');
+    };
+    return this.end;
+  }
+
+  let test = setInterval(
+    () => {
+      console.log('run');
+    },
+    1000,
+    2000
+  );
+  // setTimeout(test, 9000);
+</script>
