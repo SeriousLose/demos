@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  let arr = [42, 'foo', 42, 'foo', 'true', true];
+
+  // 方式一 new Set()方式; 利用 es6 的中 Set值唯一的特性;
+  const removeDuplicateItems = (arr) => [...new Set(arr)];
+  removeDuplicateItems(arr); //=> [42, "foo", true]
+
+  // 方式二 利用indexOf的值和查找值不相等,则重复了; indexOf 返回第一个相同元素
+  // 外层进行循环
+  function uniqueArr(arr) {
+    return arr.filter(function (ele, index, array) {
+      // 利用数组indexOf()方法，返回找到的第一个值的索引
+      // 如果数组元素的索引值与indexOf方法查找返回的值不相等，则说明该值重复了，直接过滤掉
+      return array.indexOf(ele) === index;
+    });
+  }
+  console.log(uniqueArr(arr));
+
+  // 根据判断老数组的数据 索引是否相同
+  function uniqueArr1(arr) {
+    let newAry = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr.indexOf(arr[i]) === i) {
+        newAry.push(arr[i]);
+      }
+    }
+    return newAry;
+  }
+  console.log(uniqueArr1(arr));
+
+  // 根据判断 新数组的数据是否能查到
+  function uniqueArr2(arr) {
+    let newAry = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (newAry.indexOf(arr[i]) === -1) {
+        newAry.push(arr[i]);
+      }
+    }
+    return newAry;
+  }
+  console.log(uniqueArr2(arr));
+
+  // 通过i++ 的方式跳过重复元素的push
+  // [42, 'foo', 42, 'foo', 'true', true];
+  function uniqueArr3(arr) {
+    let newAry = [];
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = i + 1; j < arr.length; j++) {
+        if (arr[i] === arr[j]) {
+          j = ++i;
+        }
+      }
+      newAry.push(arr[i]);
+    }
+    return newAry;
+  }
+  console.log(uniqueArr3(arr));
+
+  function uniqueArr4(arr) {
+    let obj = {};
+    let newAry = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (!obj[arr[i]]) {
+        obj[arr[i]] = 1;
+        newAry.push(arr[i]);
+      }
+    }
+    return newAry;
+  }
+  console.log(uniqueArr4(arr));
+</script>
