@@ -57,6 +57,7 @@
      */
     getParentIndex(index) {
       return (index - 1) >> 1;
+      // return Math.floor((index - 1) / 2)
     }
 
     /**
@@ -117,11 +118,9 @@
   }
 
   const h = new MinHeap();
-  // let ary = [6, 3, 8, 5, 4, 10, 7, 2];
-  ary = [9,3,7,6,5,1,10,2]
-  // ary = [1,2,3,4,5,7,9,8,6]
+  let ary = [6, 3, 8, 5, 4, 10, 7, 2];
   ary.map(item=>{
     h.insert(item);
   })
-  console.log(h.heap);
+  console.log(h.heap); // [2,3,7,4,5,10,8,6]
 </script>
