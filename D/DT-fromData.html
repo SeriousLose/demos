@@ -13,10 +13,13 @@
   formData.append('1', '2');
   // 存在对象要 转成字符串存储
   formData.append('2', { a: 1 });
+  formData.append('3', JSON.stringify({ a: 1 }));
+
   // 第一种
   for (var value of formData.values()) {
     console.log(value);
   }
+
   // 第二种
   for (var [a, b] of formData.entries()) {
     console.log(a, b);
