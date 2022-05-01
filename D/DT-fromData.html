@@ -10,47 +10,74 @@
 </html>
 <script>
 
-/**
- *                                                     __----~~~~~~~~~~~------___
- *                                   .  .   ~~//====......          __--~ ~~
- *                   -.            \_|//     |||\\  ~~~~~~::::... /~
- *                ___-==_       _-~o~  \/    |||  \\            _/~~-
- *        __---~~~.==~||\=_    -_--~/_-~|-   |\\   \\        _/~
- *    _-~~     .=~    |  \\-_    '-~7  /-   /  ||    \      /
- *  .~       .~       |   \\ -_    /  /-   /   ||      \   /
- * /  ____  /         |     \\ ~-_/  /|- _/   .||       \ /
- * |~~    ~~|--~~~~--_ \     ~==-/   | \~--===~~        .\
- *          '         ~-|      /|    |-~\~~       __--~~
- *                      |-~~-_/ |    |   ~\_   _-~            /\
- *                           /  \     \__   \/~                \__
- *                       _--~ _/ | .-~~____--~-/                  ~~==.
- *                      ((->/~   '.|||' -_|    ~~-/ ,              . _||
- *                                 -_     ~\      ~~---l__i__i__i--~~_/
- *                                 _-~-__   ~)  \--______________--~~
- *                               //.-~~~-~_--~- |-------~~~~~~~~
- *                                      //.-~~~--\
-*/
+    /**
+     *                                                     __----~~~~~~~~~~~------___
+     *                                   .  .   ~~//====......          __--~ ~~
+     *                   -.            \_|//     |||\\  ~~~~~~::::... /~
+     *                ___-==_       _-~o~  \/    |||  \\            _/~~-
+     *        __---~~~.==~||\=_    -_--~/_-~|-   |\\   \\        _/~
+     *    _-~~     .=~    |  \\-_    '-~7  /-   /  ||    \      /
+     *  .~       .~       |   \\ -_    /  /-   /   ||      \   /
+     * /  ____  /         |     \\ ~-_/  /|- _/   .||       \ /
+     * |~~    ~~|--~~~~--_ \     ~==-/   | \~--===~~        .\
+     *          '         ~-|      /|    |-~\~~       __--~~
+     *                      |-~~-_/ |    |   ~\_   _-~            /\
+     *                           /  \     \__   \/~                \__
+     *                       _--~ _/ | .-~~____--~-/                  ~~==.
+     *                      ((->/~   '.|||' -_|    ~~-/ ,              . _||
+     *                                 -_     ~\      ~~---l__i__i__i--~~_/
+     *                                 _-~-__   ~)  \--______________--~~
+     *                               //.-~~~-~_--~- |-------~~~~~~~~
+     *                                      //.-~~~--\
+    */
 
-  let formData = new FormData();
-  formData.append('1', '2');
-  // 存在对象要 转成字符串存储
-  formData.append('2', { a: 1 });
-  formData.append('3', JSON.stringify({ a: 1 }));
+      let formData = new FormData();
+      formData.append('1', '2');
+      // 存在对象要 转成字符串存储
+      formData.append('2', { a: 1 });
+      formData.append('3', JSON.stringify({ a: 1 }));
 
-  // 第一种
-  for (var value of formData.values()) {
-    console.log(value);
-  }
+      // 第一种
+      for (var value of formData.values()) {
+        console.log(value);
+      }
 
-  // 第二种
-  for (var [a, b] of formData.entries()) {
-    console.log(a, b);
-  }
+      // 第二种
+      for (var [a, b] of formData.entries()) {
+        console.log(a, b);
+      }
 
-  const add = function (a,b){
-    return a + b;
-  }
-  const result = add(1,2);
-  console.log(result);
+      const add = function (a,b){
+        return a + b;
+      }
+      const result = add(1,2);
+      console.log(result);
+
+    if(prop("Frequency") == "Everyday",
+      dateAdd( prop("Scheduled"), 1, "days"),
+      if(prop("Frequency") == "Weekly",
+        dateAdd(prop("Scheduled"), 1, "weeks"),
+        if(prop("Frequency") == "Monthly",
+          dateAdd(prop("Scheduled"), 1, "months"),
+          if(prop("Frequency") == "Quarters",
+            dateAdd(prop("Scheduled"), 1, "quarters"),
+            if(prop("Frequency") == "Yearly",
+              dateAdd(prop("Scheduled"), 1, "years"),
+                if(prop("Frequency") == "Interval",
+                  dateAdd(prop("Scheduled"), prop("Interval"), "days"),
+                  dateAdd(prop("Scheduled"), 0, "days")
+                )
+            )
+          )
+        )
+      )
+    )
+
+    prop("Scheduled") == {"type":"daterange","end_date":"2022-04-16","start_date":"2022-04-13"}
+    {
+
+    }
+
+  type(prop("Scheduled")),start(prop("Scheduled")),end(prop("Scheduled"))
 
 </script>
