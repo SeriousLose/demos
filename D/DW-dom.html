@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="content"></div>
+  <div id="div"><button id="btn">按钮</button></div>
+</body>
+
+</html>
+<script>
+  let content = document.getElementById("content");
+
+  content.addEventListener("click", function () {
+    console.log("seriousLose");
+  }, false)
+
+  content.addEventListener("click", function () {
+    console.log("hello seriousLose");
+  }, false)
+
+
+  function add() {
+    console.log("here seriousLose");
+  }
+
+  content.addEventListener("mouseenter", add, false);
+  content.removeEventListener("mouseenter", add, false);
+</script>
+
+
+<script>
+  function showType(event) {
+    alert(event.type);
+    event.stopPropagation();
+  }
+
+  function showDiv() {
+    alert("div");
+  }
+  document.getElementById("btn").addEventListener("click", showType);
+  document.getElementById("div").addEventListener("click", showDiv);
+</script>
