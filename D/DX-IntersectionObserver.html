@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="okBtn" onclick="dd">okBtn</button>
+    <button onclick="aa(0)">隐藏</button>
+    <button onclick="bb(0)">显示</button>
+    <button onclick="aa(1)">隐藏1</button>
+    <button onclick="bb(1)">显示1</button>
+    <button onclick="cc()">创建</button>
+  </body>
+</html>
+
+<script>
+
+  function dd(){
+    console.log(11,'被点击了')
+  }
+
+  function aa(num) {
+    document.getElementsByClassName('okBtn')[num].style.display = 'none';
+  }
+
+  function bb(num) {
+    document.getElementsByClassName('okBtn')[num].style.display = 'block';
+  }
+
+
+  function cc() {
+    const circle = document.createElement('button');
+    circle.classList.add('okBtn');
+    circle.innerText = '代码新增的';
+    document.body.appendChild(circle);
+  }
+
+  for(let i = 0; i < document.getElementsByClassName('okBtn').length; i++ ){
+    AutomaticallyClick(document.getElementsByClassName('okBtn')[i])
+  }
+
+  function AutomaticallyClick(eleNode) {
+    const intersectionObserver = new IntersectionObserver(function (entries) {
+      // 元素隐藏直接反馈
+      if (entries[0].intersectionRatio <= 0) return;
+      // 元素显示了
+      entries[0].target.click();
+      console.log(entries[0].target, '元素显示了,点击事件执行');
+    });
+    intersectionObserver.observe(eleNode);
+  }
+
+  const listener = (mutationRecord) => {
+    for (let mutation of mutationRecord) {
+      if (mutation.type === 'button' && mutation.className.indexOf('okBtn') > -1) {
+        AutomaticallyClick(mutation);
+      }
+      if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === 1 && node.className.indexOf('okBtn') > -1) {
+            AutomaticallyClick(node)
+          }
+        });
+      }
+    }
+  };
+  const mutationObserver = new MutationObserver(listener);
+  mutationObserver.observe(document, { subtree: true, childList: true, attributes: true });
+</script>
