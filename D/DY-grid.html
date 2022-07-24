@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    .fl-container {
+      display: grid;
+      /* grid-template-columns: 100px 100px 100px;
+      grid-template-rows: 100px 100px 100px; */
+
+      /* grid-template-columns: 33.33% 33.33% 33.33%;
+      grid-template-rows: 33.33% 33.33% 33.33%; */
+
+      /* grid-template-columns: repeat(3, 33.33%);
+      grid-template-rows: repeat(3, 33.33%); */
+
+      /* grid-template-columns: repeat(auto-fill, 100px); */
+
+      /* grid-template-columns: 1fr 1fr; */
+
+      /* grid-template-columns: 1fr 1fr minmax(100px, 1fr); */
+
+      /* grid-template-columns: auto 1fr 1fr 1fr; */
+
+      /* grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 100px 100px 100px; */
+      /* grid-template-areas:
+        'a b c'
+        'd e f'
+        'g h i'; */
+
+      /* grid-template-areas: 'a a a'
+        'b b b'
+        'c c c'; */
+
+      /* grid-template-areas: 'a . c'
+          'd . f'
+          'g . i'; */
+
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-areas:
+        "header header header"
+        "sidebar content content"
+        "sidebar content content"
+        "footer footer footer"
+    }
+
+    .header {
+      grid-area: header;
+    }
+
+    .sidebar {
+      grid-area: sidebar;
+    }
+    .content {
+      grid-area: content;
+    }
+    .footer{
+      grid-area: footer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="fl-container">
+    <div class="header">头部</div>
+    <div class="sidebar">侧边栏</div>
+    <div class="content">内容</div>
+    <div class="footer">底部</div>
+
+    <!-- <div>4</div>
+    <div>5</div>
+    <div>6</div>
+    <div>7</div> -->
+    <!-- <div>8</div>
+    <div>9</div> -->
+  </div>
+</body>
+
+</html>
