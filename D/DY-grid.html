@@ -41,14 +41,23 @@
           'd . f'
           'g . i'; */
 
-      grid-template-columns: 1fr 1fr 1fr;
+      /* grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: 1fr 1fr 1fr ;
       grid-template-areas:
         "header header header"
         "sidebar content content"
         "sidebar content content"
-        "footer footer footer"
+        "footer footer footer" */
+
+      grid-template:
+        "header header header" 1fr
+        "sidebar content content" 1fr
+        "sidebar content content" 1fr
+        "footer footer footer" 1fr
+        / 1fr 1fr 1fr;
     }
+
+
 
     .header {
       grid-area: header;
