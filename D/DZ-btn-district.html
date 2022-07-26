@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      *{
+        padding: 0;
+        margin: 0;
+      }
+      .fl-click-area {
+        position: relative;
+        cursor: pointer;
+      }
+      .fl-click-area::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        bottom: -20px;
+        left: -20px;
+      }
+
+      .fl-click-area1 {
+        border: 20px solid transparent;
+        background-clip: padding-box;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="padding:100px">
+      <button class="fl-click-area" onclick="aa(1)">需要扩大点击区域0</button>
+      <button class="fl-click-area" onclick="aa(3)">需要扩大点击区域0</button>
+      <button class="fl-click-area1" onclick="aa(2)">SeriousLose</button>
+    </div>
+
+  </body>
+  <script>
+    function aa(n){
+      console.log(n);
+    }
+  </script>
+</html>
