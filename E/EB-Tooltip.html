@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>虎克小哥哥</title>
+</head>
+<body>
+  <section class="com">
+    <a class="caption" data-title="虎克小哥哥18岁">
+      <img src="https://www.chuangkit.com/_nuxt/img/8f34658.svg" />
+    </a>
+  </section>
+  <style>
+    .com {
+      padding: 400px 100px;
+      border-radius: 6px;
+      text-align: center;
+      background: rgba(91, 192, 235, 0.37);
+    }
+    img {
+      width: 180px;
+    }
+    .caption {
+      position: relative;
+      cursor: pointer;
+    }
+    .caption::after {
+      position: absolute;
+      background-color: rgba(91, 192, 235, 0.37);
+      top: -12px;
+      left: 207px;
+      padding: 20px;
+      border-radius: 6px;
+    }
+    .caption:hover::after {
+      content: attr(data-title);
+    }
+  </style>
+</body>
+</html>
