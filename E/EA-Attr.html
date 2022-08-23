@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeriousLose</title>
+</head>
+
+<body>
+  <section class="com">
+    <h1 username="SeriousLose">SeriousLose</h1>
+    <p age="17">SeriousLose</p>
+  </section>>
+
+  <style>
+    body {
+      margin: 50px;
+      color: #ffffff;
+      font-size: 50px;
+    }
+
+    .com {
+      padding: 100px;
+      border-radius: 6px;
+      text-align: center;
+      background: rgba(91, 192, 235, 0.37);
+    }
+
+    h1:before {
+      content: attr(username);
+      color: yellow
+    }
+
+    p:after {
+      content: attr(age);
+      color: yellow
+    }
+  </style>
+</body>
+
+</html>
