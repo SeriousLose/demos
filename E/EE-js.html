@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  const obj = {
+    a: {
+      b: [
+        {
+          c: 1,
+        },
+      ],
+    },
+  };
+  function get(obj, chain, defaultVal) {
+    let ary = chain.replace(/\.|\[|\]/g,"#").split('#').filter(item=> item != '');
+    let value = obj;
+    for(let i =0; i< ary.length; i++) {
+      value = value[ary[i]];
+    }
+    console.log(value || defaultVal);
+  }
+
+  get(obj, 'a.b[0].c', 0); // 输出 1
+  get(obj, 'a.b.c', 0); // 输出 0
+
+  const getType = (value) =>
+    Object.prototype.toString
+      .call(value)
+      .replace(/^\[object (\w+)\]$/, '$1')
+      .toLowerCase();
+  const isObjectLike = (value) => getType(value) === 'object' || getType(value) === 'array';
+
+  /**
+   * @param  {object|array} obj
+   * @param  {string} keyPath 同时兼容两种格式'a.b[0].c'和'a.b.0.c'
+   * @param  {any} defaultValue
+   */
+  const lodashGet = (obj, keyPath, defaultValue) => {
+    if (!isObjectLike(obj)) {
+      console.error('obj格式有误');
+      return defaultValue;
+    }
+    if (getType(keyPath) !== 'string' || !keyPath) {
+      console.error('keyPath格式有误');
+      return defaultValue;
+    }
+    const keyArr = keyPath.split('.');
+    const nextKeyArr = [];
+    for (let j = 0; j < keyArr.length; j++) {
+      const item = keyArr[j];
+      if (~item?.indexOf('[')) {
+        if (/^[\W\w_\d]*\[\d+\]$/.test(item)) {
+          const itemMatch = item.match(/([\W\w_\d]*)\[(\d+)\]/);
+          const key1 = itemMatch[1];
+          if (key1) {
+            nextKeyArr.push(key1);
+          }
+          const key2 = itemMatch[2];
+          if (key2) {
+            nextKeyArr.push(Number(key2));
+          }
+        } else {
+          console.error('keyPath格式有误');
+          return defaultValue;
+        }
+      } else {
+        nextKeyArr.push(item);
+      }
+    }
+    console.log(nextKeyArr)
+    const len = nextKeyArr.length;
+    let resValue = obj;
+    let isError;
+    for (let i = 0; i < len; i++) {
+      if (isObjectLike(resValue)) {
+        resValue = resValue[nextKeyArr[i]];
+      }
+      if (!isObjectLike(resValue)) {
+        if (i < len - 1) {
+          // 非类对象再取值
+          console.error('取值有误');
+          isError = true;
+        }
+        break;
+      }
+    }
+    return resValue === undefined || isError ? defaultValue : resValue;
+  };
+
+  const test1 = { a: { b: [{ c: 1 }] }, a1: 22 };
+  const test2 = [{ c: 1 }];
+  console.log('test1 格式1', lodashGet(test1, 'a.b[0].c', 'defaultValue'));
+  console.log('test1 格式2', lodashGet(test1, 'a.b.0.c', 'defaultValue'));
+</script>
