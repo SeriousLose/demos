@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      span {
+        position: relative;
+        margin: 50px auto;
+      }
+      span[aria-label]:hover:after {
+        content: attr(aria-label);
+        position: absolute;
+        bottom: -30px;
+        left: 0;
+        border: 1px solid red;
+        background: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <span aria-label="SeriousLose111111">SeriousLose</span>
+    </div>
+  </body>
+</html>
