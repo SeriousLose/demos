@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>宫格图表</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.8.0/echarts-en.common.js" rel="external nofollow"></script>
+  </head>
+  <body>
+    <div id="chart" style="width: 100%; height: 600px"></div>
+  </body>
+</html>
+<script>
+  // Initialize ECharts library
+  var myChart = echarts.init(document.getElementById('chart'));
+
+  // Define the options for the chart
+  var option = {
+    grid: [
+      { left: '2%', top: '2%', width: '45%', height: '45%' },
+      { left: '50%', top: '2%', width: '45%', height: '45%' },
+      { left: '2%', top: '50%', width: '45%', height: '45%' },
+    ],
+    xAxis: [
+      { type: 'category', data: ['Category 1', 'Category 2', 'Category 3'] },
+      { type: 'category', gridIndex: 1, data: ['Category 1', 'Category 2', 'Category 3'] },
+      { type: 'category', gridIndex: 2, data: ['Category 1', 'Category 2', 'Category 3'] },
+    ],
+    yAxis: [{ type: 'value' }, { type: 'value', gridIndex: 1 }, { type: 'value', gridIndex: 2 }],
+    series: [
+      { type: 'line', data: [10, 20, 30] },
+      { type: 'line', xAxisIndex: 1, yAxisIndex: 1, data: [5, 15, 25] },
+      { type: 'line', xAxisIndex: 2, yAxisIndex: 2, data: [5, 15, 25] },
+    ],
+  };
+
+  // Set the options and render the chart
+  myChart.setOption(option);
+</script>

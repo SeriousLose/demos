@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>w3cschool (www.w3cschool.cn)</title>
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.8.0/echarts-en.common.js" rel="external nofollow"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px; height: 400px" class="mychart"></div>
+    <script type="text/javascript">
+      var id = 'main';
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('main'));
+      // 指定图表的配置项和数据
+      var yName = '单位';
+      var seriesData = [
+        [0, 1],
+        [1, 5],
+        [2, 4],
+        [3, 8],
+        [4, 6],
+      ];
+      var colors = ['#EE6666', '#48D1CC', '#FAC858', '#91CC75', '#EA7CCC', '#9A60B4', '#3BA272', '#FC8452', '#E53E71', '#5470C6'];
+      var option = {
+        color: colors,
+        title: {
+          text: '',
+          textStyle: {
+            // color: 'white',
+            color: 'black',
+            fontWeight: 400,
+            fontSize: 16,
+          },
+          left: 'center',
+          top: '0%',
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            lineStyle: {
+              color: '#888888',
+            },
+          },
+        },
+        legend: {
+          top: '30',
+          x: 'center',
+          textStyle: {
+            //color: "white",
+            color: 'black',
+            fontSize: 12,
+          },
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            dataView: { readOnly: false },
+            magicType: { type: ['line', 'bar'] },
+            restore: {},
+            saveAsImage: {},
+          },
+        },
+        grid: {
+          top: '20%',
+          bottom: '15%',
+          left: '2%',
+          right: '10%',
+          containLabel: true,
+        },
+        xAxis: [
+          {
+            id: 'x0',
+            type: 'category',
+            boundaryGap: true,
+            axisLabel: {
+              textStyle: {
+                //color: "#FFF",
+                color: 'black',
+                fontSize: 12,
+              },
+            },
+            axisLine: {
+              show: true,
+              lineStyle: {
+                //color: "black",
+                color: 'black',
+              },
+            },
+            axisTick: {
+              show: false,
+            },
+          },
+          {
+            axisPointer: {
+              show: false,
+            },
+            axisLine: {
+              show: false,
+            },
+            position: 'bottom',
+            offset: 20,
+          },
+        ],
+        yAxis: [
+          {
+            id: '2',
+            name: yName,
+            nameTextStyle: {
+              //color: '#FFF',
+              color: 'black',
+              fontSize: 12,
+            },
+            type: 'value',
+            axisTick: {
+              show: false,
+            },
+            axisLine: {
+              show: true,
+              lineStyle: {
+                color: 'black',
+              },
+            },
+            axisLabel: {
+              formatter: '{value}',
+              textStyle: {
+                //color: "#FFF",
+                color: 'black',
+                fontSize: 12,
+              },
+            },
+            splitLine: {
+              show: false,
+            },
+          },
+        ],
+        dataZoom: [
+          {
+            id: 'dataZoomX',
+            show: true,
+            backgroundColor: 'rgba(47,69,84,0.4)',
+            type: 'slider',
+            fillerColor: 'rgba(167,183,204,0.4)',
+            borderColor: 'rgba(221,221,221,1)',
+            xAxisIndex: 0,
+            zoomLock: false,
+            zoomOnMouseWheel: true, // 如何触发缩放。可选值为：true：表示不按任何功能键，鼠标滚轮能触发缩放。false：表示鼠标滚轮不能触发缩放。'shift'：表示按住
+            bottom: 'auto', // 组件离容器下侧的距离,'20%'
+            handleIcon:
+              'M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+            filterMode: 'empty',
+            height: 20,
+            moveHandleSize: 0,
+          },
+          {
+            id: 'dataZoomY',
+            type: 'slider',
+            yAxisIndex: 0, // 设置
+            zoomLock: false, // 是否锁定选择区域（或叫做数据窗口）的大小。如果设置为
+            zoomOnMouseWheel: true, // 如何触发缩放。可选值为：true：表示不按任何功能键，鼠标滚轮能触发缩放。false：表示鼠标滚轮不能触发缩放。'shift'：表示按住
+            handleIcon:
+              'M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+            width: 20,
+            moveHandleSize: 0,
+          },
+          {
+            type: 'inside',
+            yAxisIndex: 0,
+            zoomLock: false,
+            filterMode: 'empty',
+          },
+        ],
+        series: [
+          {
+            id: 'serie0',
+            type: 'line',
+            z: 1,
+            data: seriesData,
+            symbolSize: 10,
+            symbol: 'circle',
+            smooth: true,
+            itemStyle: {
+              normal: {
+                color: '#EE6666',
+                //color: 'rgba(0,245,255,0.9)' 蓝色
+              },
+            },
+            emphasis: {
+              focus: 'series',
+            },
+            markPoint: {
+              symbol: 'pin',
+              // 标记的数据，可以是最大值最小值也可以是自定义的坐标
+              data: [],
+            },
+          },
+          {
+            id: 'vline',
+            z: 2,
+            data: seriesData,
+            type: 'line',
+            // 隐藏series
+            symbolSize: 0,
+            showSymbol: false,
+            lineStyle: {
+              width: 0,
+              color: 'rgba(0, 0, 0, 0)',
+            },
+            markPoint: {
+              symbol: 'pin',
+              // 标记的数据，可以是最大值最小值也可以是自定义的坐标
+              data: [],
+            },
+          },
+        ],
+      };
+      option.series.push({
+        id: 'AreaChart',
+        type: 'line',
+        symbolSize: 1,
+        itemStyle: {
+          normal: {
+            color: 'rgb(0,153,255,1)',
+          },
+        },
+        markArea: {
+          silent: true,
+          itemStyle: {
+            normal: {
+              color: 'rgb(255,255,255,0)',
+            },
+          },
+          data: [
+            [
+              {
+                yAxis: 5,
+              },
+              {
+                yAxis: 2,
+              },
+            ],
+          ],
+        },
+        // markLine: {
+        //   silent: true,
+        //   data: [
+        //     {
+        //       yAxis: 3,
+        //       lineStyle: {
+        //         type: 'dashed',
+        //         width: 1.2,
+        //         color: 'rgb(0,103,255,1)',
+        //       },
+        //     },
+        //     {
+        //       yAxis: 5,
+        //     },
+        //     {
+        //       yAxis: 2,
+        //     },
+        //   ],
+        // },
+        markPoint: {
+          symbol: 'pin',
+          symbolSize: 25,
+          itemStyle: {
+            normal: {
+              label: {
+                show: true,
+                fontSize: 5,
+              },
+            },
+          },
+          // 标记的数据，可以是最大值最小值也可以是自定义的坐标
+          data: [],
+        },
+      });
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+
+      //绘制垂直markLine
+      myChart.setOption(getVlineOpt(0, 2));
+
+      function getMarkAxis() {
+        var result = new Object();
+        var option = myChart.getOption();
+        $.each(option.series, function (i, series) {
+          if (series.id == 'vline') {
+            var markLine = series.markLine;
+            result['L1'] = markLine.data[0].xAxis;
+            result['L2'] = markLine.data[1].xAxis;
+            return false;
+          }
+        });
+        return result;
+      }
+      function getVlineOpt(x1, x2, select) {
+        if (x1 == null || x1 == undefined) {
+          x1 = getMarkAxis()['L1'];
+        }
+        if (x2 == null || x2 == undefined) {
+          x2 = getMarkAxis()['L2'];
+        }
+        var color1 = '#FFBE00';
+        var color2 = '#FFBE00';
+        if (select == 'L1') {
+          color1 = '#111111';
+        }
+        if (select == 'L2') {
+          color2 = '#111111';
+        }
+
+        var option = {
+          series: [
+            {
+              id: 'vline',
+              markLine: {
+                symbol: 'none',
+                silent: true,
+                label: {
+                  show: true,
+                },
+                data: [
+                  {
+                    xAxis: x1,
+                    name: 'L1',
+                    lineStyle: {
+                      normal: {
+                        type: 'dashed',
+                        width: 1,
+                        color: color1,
+                      },
+                    },
+                  },
+                  {
+                    xAxis: x2,
+                    name: 'L2',
+                    lineStyle: {
+                      normal: {
+                        type: 'dashed',
+                        width: 1,
+                        color: color2,
+                      },
+                    },
+                  },
+                ],
+              },
+              markPoint: {
+                symbol: 'pin',
+                // 标记的数据，可以是最大值最小值也可以是自定义的坐标
+                data: [],
+              },
+            },
+          ],
+        };
+        return option;
+      }
+
+      //绘制L值的graphic line
+      var myHeight = myChart.getHeight() - 50;
+      var myWidth = myChart.getWidth() - 50;
+      /* myChart.setOption({
+			graphic: {
+				elements: [
+					{
+						type: 'rect',
+						id: 'rect1',
+						name: 'rect1',
+						bottom: -myHeight,
+						z: 10,
+						invisible: true,
+						shape: {
+							width: 0,
+							height: myHeight * 2
+						},
+						style: {
+							fill: 'rgba(128,128,128,0.5)',
+							stroke: 'rgba(128,128,128,0.5)',
+							lineWidth: 6
+						},
+						// 转换坐标系上的点到像素坐标值
+						position: [myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L1']), 0],
+						bouding: 'all',
+						cursor: 'move',
+						draggable: true,
+					//	ondragstart: onLineDragStart,
+					//	ondragend: onLineDragEnd
+					}, {
+						type: 'rect',
+						id: 'rect2',
+						name: 'rect2',
+						bottom: -myHeight,
+						z: 9,
+						invisible: true,
+						shape: {
+							width: 0,
+							height: myHeight * 2
+						},
+						style: {
+							fill: 'rgba(128,128,128,0.5)',
+							stroke: 'rgba(128,128,128,0.5)',
+							lineWidth: 6
+						},
+						//转换坐标系上的点到像素坐标值
+						position: [myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L2']), 0],
+						bouding: 'all',
+						cursor: 'move',
+						draggable: true,
+					//	ondragstart: onLineDragStart,
+					//	ondragend: onLineDragEnd
+					}, {
+						type: 'rect',
+						id: 'rectArea',
+						name: 'rectArea',
+						bottom: -myHeight,
+						z: 8,
+						invisible: true,
+						shape: {
+							width: Math.abs(myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L2']) - myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L1'])) - 10,
+							height: myHeight * 2
+						},
+						style: {
+							fill: 'rgba(183,81,5,0.1)',
+							stroke: 'rgba(128,128,128,0.2)'
+						},
+						//转换坐标系上的点到像素坐标值
+						position: [myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L1'] < getMarkAxis()['L2'] ? getMarkAxis()['L1'] : getMarkAxis()['L2']) + 5, 0],
+						bouding: 'all',
+						cursor: 'move',
+						draggable: true,
+						//onmouseover: onAreaMouseOver,
+					//	onmouseout: onAreaMouseOut,
+					//	ondragend: onAreaDragEnd,
+					}, {
+						type: 'rect',
+						id: 'rectAll',
+						name: 'rectAll',
+						bottom: 0,
+						z: 7,
+						invisible: true,
+						shape: {
+							width: myWidth,
+							height: myHeight
+						},
+						style: {
+							fill: 'rgba(183,81,5,0.8)',
+							stroke: 'rgba(128,128,128,0.2)'
+						},
+						//转换坐标系上的点到像素坐标值
+						position: [0, 0],
+						bouding: 'all',
+						cursor: 'default',
+						draggable: false
+					}]
+			}
+		});
+        */
+      myChart.setOption({
+        graphic: {
+          elements: [
+            {
+              type: 'rect',
+              id: 'rect1',
+              name: 'rect1',
+              bottom: -myHeight,
+              z: 10,
+              invisible: true,
+              shape: {
+                width: 0,
+                height: myHeight * 2,
+              },
+              style: {
+                fill: 'rgba(128,128,128,1)',
+                stroke: 'rgba(128,128,128,1)',
+                lineWidth: 6,
+              },
+              // 转换坐标系上的点到像素坐标值
+              position: [myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L1']), 0],
+              bouding: 'all',
+              cursor: 'move',
+              draggable: true,
+              ondragstart: onLineDragStart,
+              ondragend: onLineDragEnd,
+            },
+            {
+              type: 'rect',
+              id: 'rect2',
+              name: 'rect2',
+              bottom: -myHeight,
+              z: 9,
+              invisible: true,
+              shape: {
+                width: 0,
+                height: myHeight * 2,
+              },
+              style: {
+                fill: 'rgba(128,128,128,1)',
+                stroke: 'rgba(128,128,128,1)',
+                lineWidth: 6,
+              },
+              //转换坐标系上的点到像素坐标值
+              position: [myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L2']), 0],
+              bouding: 'all',
+              cursor: 'move',
+              draggable: true,
+              ondragstart: onLineDragStart,
+              ondragend: onLineDragEnd,
+            },
+            {
+              type: 'rect',
+              id: 'rectArea',
+              name: 'rectArea',
+              bottom: -myHeight,
+              z: 8,
+              invisible: true,
+              shape: {
+                width: Math.abs(myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L2']) - myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L1'])) - 10,
+                height: myHeight * 2,
+              },
+              style: {
+                fill: 'rgba(183,81,5,0.1)',
+                stroke: 'rgba(128,128,128,0.2)',
+              },
+              //转换坐标系上的点到像素坐标值
+              position: [myChart.convertToPixel({ xAxisId: 'x0' }, getMarkAxis()['L1'] < getMarkAxis()['L2'] ? getMarkAxis()['L1'] : getMarkAxis()['L2']) + 5, 0],
+              bouding: 'all',
+              cursor: 'move',
+              draggable: true,
+              onmouseover: onAreaMouseOver,
+              onmouseout: onAreaMouseOut,
+              ondragend: onAreaDragEnd,
+            },
+            {
+              type: 'rect',
+              id: 'rectAll',
+              name: 'rectAll',
+              bottom: 0,
+              z: 7,
+              invisible: true,
+              shape: {
+                width: myWidth,
+                height: myHeight,
+              },
+              style: {
+                fill: 'rgba(183,81,5,0.8)',
+                stroke: 'rgba(128,128,128,0.2)',
+              },
+              //转换坐标系上的点到像素坐标值
+              position: [0, 0],
+              bouding: 'all',
+              cursor: 'default',
+              draggable: false,
+            },
+          ],
+        },
+      });
+
+      //拖拽开始markline变色
+      function onLineDragStart() {
+        var graphicId = this.__ecGraphicId;
+        if (graphicId == 'rect1') {
+          myChart.setOption(getVlineOpt(null, null, 'L1'));
+        } else if (graphicId == 'rect2') {
+          myChart.setOption(getVlineOpt(null, null, 'L2'));
+        }
+      }
+
+      //垂直线重新定位，拖拽结束markLine和graphic确定位置
+      function onLineDragEnd() {
+        //console.log(this.position);
+        try {
+          //转换像素坐标值到逻辑坐标系上的点，是convertToPixel的逆运算
+          var x = getXAxis(this.position[0]);
+
+          //markLine重新定位
+          var vline_opt = {};
+          var graphicId = this.__ecGraphicId;
+          if (graphicId == 'rect1') {
+            vline_opt = getVlineOpt(x, null);
+          } else if (graphicId == 'rect2') {
+            vline_opt = getVlineOpt(null, x);
+          }
+          myChart.setOption(vline_opt);
+
+          //graphic重新定位
+          var graph_opt = getGraphicOpt();
+          myChart.setOption(graph_opt);
+
+          //当前页所有echarts修改垂直线
+          //var opt = $.extend(true, vline_opt, graph_opt);
+          //changeCharts(id, opt);
+        } catch (e) {
+          console.log('垂直线移动失败。');
+          console.log(e);
+        }
+      }
+
+      function getXAxis(Xpx) {
+        var seriesData = getSeriesData(myChart, 'serie0');
+        var x = myChart.convertFromPixel({ xAxisId: 'x0' }, Xpx);
+        if (x <= 0) {
+          x = 0;
+        } else if (x >= seriesData.length) {
+          x = seriesData.length - 1;
+        }
+        return x;
+      }
+
+      function getSeriesData(myChart, serieId) {
+        var data = [];
+        try {
+          var series = myChart.getOption().series;
+          $.each(series, function (i, serie) {
+            if (serie.id == serieId) {
+              data = serie.data;
+              return false;
+            }
+          });
+        } catch (e) {
+          console.log('获取数据失败。');
+          console.log(e);
+        }
+        return data;
+      }
+
+      //鼠标移入移出显示隐藏Area图形
+      var area_opt = {
+        graphic: {
+          elements: [
+            {
+              id: 'rectArea',
+              $action: 'merge', //如果已有元素，则新的配置项和已有的设定进行 merge。如果没有则新建
+              invisible: true, //节点是否可见。
+            },
+          ],
+        },
+      };
+
+      function onAreaMouseOver() {
+        area_opt.graphic.elements[0].invisible = false;
+        myChart.setOption(area_opt);
+      }
+
+      function onAreaMouseOut() {
+        area_opt.graphic.elements[0].invisible = true;
+        myChart.setOption(area_opt);
+      }
+
+      function onAreaDragEnd() {
+        try {
+          var x_start = getXAxis(this.position[0] - 5);
+          var x_end = getXAxis(this.position[0] + this.shape.width + 5);
+
+          //markLine重新定位
+          var vline_opt = {};
+          var result = getMarkAxis();
+          if (result['L1'] < result['L2']) {
+            vline_opt = getVlineOpt(x_start, x_end);
+          } else {
+            vline_opt = getVlineOpt(x_end, x_start);
+          }
+          myChart.setOption(vline_opt);
+
+          //graphic重新定位
+          var graph_opt = getGraphicOpt();
+          myChart.setOption(graph_opt);
+
+          //当前页所有echarts修改垂直线
+          var opt = $.extend(true, vline_opt, graph_opt); //是否进行深度拷贝,合并vline_opt和graph_opt
+          changeCharts(id, opt);
+          //getX(id, x_start, x_end);
+        } catch (e) {
+          console.log('垂直线移动失败。');
+          console.log(e);
+        }
+      }
+      //graphic重新定位
+      function getGraphicOpt() {
+        var result = getMarkAxis();
+        var option = {
+          graphic: {
+            elements: [
+              {
+                id: 'rect1',
+                $action: 'merge',
+                position: [myChart.convertToPixel({ xAxisId: 'x0' }, result['L1']), 0],
+              },
+              {
+                id: 'rect2',
+                $action: 'merge',
+                position: [myChart.convertToPixel({ xAxisId: 'x0' }, result['L2']), 0],
+              },
+              {
+                id: 'rectArea',
+                $action: 'merge',
+                shape: {
+                  width: Math.abs(myChart.convertToPixel({ xAxisId: 'x0' }, result['L2']) - myChart.convertToPixel({ xAxisId: 'x0' }, result['L1'])) - 10,
+                },
+                position: [myChart.convertToPixel({ xAxisId: 'x0' }, result['L1'] < result['L2'] ? result['L1'] : result['L2']) + 5, 0],
+              },
+            ],
+          },
+        };
+        return option;
+      }
+
+      function changeCharts(id, option) {
+        try {
+          var charts = $('#' + id)
+            .parents('div[role=tabpanel]')
+            .find('.mychart');
+          $.each(charts, function (i, chart) {
+            if (chart.id == id) return true;
+            var myChart = echarts.getInstanceByDom(chart);
+            myChart.setOption(option);
+          });
+        } catch (e) {
+          console.log('charts修改失败。');
+          console.log(e);
+        }
+      }
+    </script>
+  </body>
+</html>

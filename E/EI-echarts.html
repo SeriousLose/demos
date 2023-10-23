@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.8.0/echarts-en.common.js" rel="external nofollow"></script>
+
+  <body>
+    <div id="main" style="width: 600px; height: 400px"></div>
+  </body>
+  <script>
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+      // x轴
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        axisLabel: {
+          show: true,
+        },
+      },
+      // y轴
+      yAxis: {
+        type: 'value',
+      },
+      // 数据
+      series: [
+        {
+          name: '数据值',
+          type: 'line',
+          yAxisIndex: 0,
+          xAxisIndex: 0,
+          data: [150, 230, 224, 218, 135, 147, 260],
+          markLine: {
+            data: [{ type: 'line', xAxis: 'Tue', name: '横线' }],
+          },
+        },
+        {
+          type: 'line',
+          symbolSize: 1,
+          markLine: {
+            silent: true,
+            data: [
+              {
+                yAxis: 160,
+              },
+            ],
+          },
+        },
+        {
+          type: 'line',
+          symbolSize: 1,
+          markLine: {
+            silent: true,
+            data: [
+              {
+                yAxis: 290,
+              },
+            ],
+          },
+        },
+      ],
+      // 鼠标悬浮竖线显示
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          lineStyle: {
+            color: '#888888',
+          },
+        },
+      },
+      // 布局调整
+      grid: {
+        top: '20%',
+        bottom: '15%',
+        left: '2%',
+        right: '10%',
+        containLabel: true,
+      },
+    };
+
+    // 绑定 tooltip 触发事件
+    myChart.on('mouseover', 'series.line', function (params) {
+      // Your event handling code goes here
+      console.log('Mouseover event:', params);
+    });
+
+    option && myChart.setOption(option);
+  </script>
+</html>
