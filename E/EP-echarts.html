@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>ECharts Dragging Example</title>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/echarts@latest/dist/echarts.min.js"></script> -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.8.0/echarts-en.common.js" rel="external nofollow"></script>
+
+</head>
+
+<body>
+  <div id="myChart" style="width: 600px; height: 400px"></div>
+  <script>
+    var myChart = echarts.init(document.getElementById('myChart'));
+
+    let line = {
+      group: 'line-mark',
+      type: 'line',
+      shape: {
+        x1: 50,
+        y1: 100,
+        x2: 50,
+        y2: 300,
+      },
+      style: {
+        stroke: 'red',
+      },
+      draggable: true,
+      onmouseover: function (params) {
+        // line.draggable = true;
+        //   myChart.setOption({
+        //     graphic: line,
+        //   });
+      },
+      onclick: function () {
+        // line.draggable = true;
+        // myChart.setOption({
+        //   graphic: line,
+        // });
+      },
+      ondrag: function (params) {
+        var x = params.event.clientX;
+        console.log(x)
+        if (params.target.position[0] < 100) {
+          params.target.position[0] = 100;
+        }
+        if (params.target.position[0] > 500) {
+          params.target.position[0] = 500;
+        }
+        option.graphic.shape.x1 = params.target.position[0];
+        option.graphic.shape.x2 = params.target.position[0];
+        myChart.setOption(option)
+
+
+        // 特殊限制下禁用拖拽
+        // if (x < 200 || x > 400) {
+        //   line.draggable = false;
+        //   return;
+        // } else {
+        //   line.draggable = true;
+        // }
+
+        // 判断左右边界，限制拖拽范围
+        // if (x > 300) {
+        //   // line.shape.x1 = 300;
+        //   // line.shape.x2 = 300;
+        //   line.draggable = false;
+        //   myChart.setOption({
+        //     graphic: line,
+        //   });
+        // }
+
+        // // 更新竖线的位置
+        // line.shape.x1 = x;
+        // line.shape.x2 = x;
+
+        // // 更新图表
+        // myChart.setOption({
+        //   graphic: line,
+        // });
+      },
+    };
+
+    const option = {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      },
+      yAxis: {
+        type: 'value',
+      },
+      series: [{
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line',
+        smooth: true,
+      }, ],
+      graphic: [line],
+    };
+
+
+
+    myChart.setOption(option);
+
+    // 设置图表的Option
+    // myChart.setOption(option);
+  </script>
+</body>
+
+</html>
