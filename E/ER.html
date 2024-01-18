@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  const data = [
+    {
+      key: 'a1',
+      value: '展业',
+      children: [
+        {
+          key: 'b1',
+          value: '展业态度',
+          children: [
+            { key: 'b3', value: '营销扰民', children: null },
+            { key: 'b4', value: '冒名展', children: null },
+          ],
+        },
+        { key: 'b2', value: '展示技能', children: null },
+      ],
+    },
+    {
+      key: 'c2',
+      value: '展业',
+      children: null,
+    },
+    {
+      key: '807',
+      value: '循环动用条件和规则限制',
+      children: [{ key: '839', value: '代客签字', children: null }],
+    },
+  ];
+
+  function transformData(data) {
+    let dealData = [];
+
+    data.forEach((item) => {
+      if (item.children) {
+        item.children.forEach((child) => {
+          if (child.children) {
+            child.children.forEach((grandchild) => {
+              dealData.push({
+                level1Key: item.key,
+                level1Value: item.value,
+                level2Key: child.key,
+                level2Value: child.value,
+                level3Key: grandchild.key,
+                level3Value: grandchild.value,
+              });
+            });
+          } else {
+            dealData.push({
+              level1Key: item.key,
+              level1Value: item.value,
+              level2Key: child.key,
+              level2Value: child.value,
+              level3Key: null,
+              level3Value: null,
+            });
+          }
+        });
+      }
+    });
+
+    return dealData;
+  }
+
+  let dealData = transformData(data);
+  console.log(dealData);
+  // const dealData = [
+  //   {
+  //     level1Key:'a1',
+  //     level1Value:'展业',
+  //     level2Key:'b1',
+  //     level2Value:'展业态度',
+  //     level3Key:'b3',
+  //     level3Value:'营销扰民',
+  //   },
+  //   {
+  //     level1Key:'a1',
+  //     level1Value:'展业',
+  //     level2Key:'b1',
+  //     level2Value:'展业态度',
+  //     level3Key:'b4',
+  //     level3Value:'冒名展',
+  //   }
+  // ]
+</script>
