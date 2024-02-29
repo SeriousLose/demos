@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ECharts</title>
+    <!-- 引入 ECharts 文件 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/echarts@latest/dist/echarts.min.js"></script> -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"
+      integrity="sha512-k37wQcV4v2h6jgYf5IUz1MoSKPpDs630XGSmCaCCOXxy2awgAWKHGZWr9nMyGgk3IOxA1NxdkN8r1JHgkUtMoQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 600px; height: 400px"></div>
+    <script type="text/javascript">
+      // 基于准备好的 DOM，初始化 ECharts 实例
+      var myChart = echarts.init(document.getElementById('main'));
+
+      const data = [820, 932, 901, 934, 1290, 1330, 1320];
+      //   let graphicData =  data.map((value, index) => ({
+      //   type: 'group',
+      //   left: myChart.convertToPixel('grid', [index, value])[0] - 15,
+      //   top: myChart.convertToPixel('grid', [index, value])[1] - 40,
+      //   children: [
+      //     {
+      //       type: 'circle',
+      //       shape: {
+      //         cx: 15,
+      //         cy: 15,
+      //         r: 15,
+      //       },
+      //       style: {
+      //         fill: 'rgba(0,0,0,0.5)',
+      //       },
+      //     },
+      //     {
+      //       type: 'text',
+      //       style: {
+      //         text: value,
+      //         fill: '#fff',
+      //         fontSize: 12,
+      //       },
+      //       left: 7,
+      //       top: 7,
+      //     },
+      //   ],
+      // }));
+
+      // 指定图表的配置项和数据
+      var option = {
+        title: {
+          text: '自定义标题', // 设置标题文本
+          left: 'left', // 设置标题的水平对齐方式
+          top: 'top', // 设置标题的垂直对齐方式
+          z: -1, // 设置标题的层叠顺序
+        },
+        tooltip: {
+          trigger: 'axis', // 设置 tooltip 的触发方式为坐标轴
+          axisPointer: {
+            type: 'cross', // 设置 tooltip 的指向为十字光标
+          },
+        },
+        xAxis: {
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: [
+          {
+            data: data,
+            type: 'line',
+            smooth: true, // 开启平滑曲线
+            markPoint: {
+              data: [
+                { type: 'max', name: '最大值' },
+                { type: 'min', name: '最小值' },
+                { type: 'average', name: '平均值' },
+              ],
+            },
+            markLine: {
+              data: [
+                { type: 'vertical', yAxis: 'value', name: '竖线' },
+                { type: 'horizontal', xAxis: 'index', name: '横线' },
+              ],
+            },
+          },
+        ],
+        // 添加图片类型的图形元素
+        graphic: [
+          {
+            type: 'group', // 设置图形元素的类型为图片
+            left: 162.8571 - 12, // 设置图片相对于图表的右侧距离为 50
+            top: 162.24 - 24 - 10, // 设置图片相对于图表的上侧距离为 50
+            // left: 60,
+            // top: 60,
+            style: {
+              width: 12,
+              height: 12,
+            },
+            children: [
+              {
+                type: 'circle',
+                shape: {
+                  cx: 6,
+                  cy: 6,
+                  r: 12,
+                },
+                style: {
+                  fill: 'rgba(0,0,0,0)',
+                  // stroke: '1px solid ',
+                },
+                top: 'middle',
+                left: 'center',
+              },
+
+              {
+                type: 'text',
+                style: {
+                  text: 10,
+                  fill: '#000',
+                  fontSize: 12,
+                  // textAlign: 'center',
+                  // textVerticalAlign: 'top',
+                },
+                top: 'middle',
+                left: 'center',
+              },
+              {
+                type: 'polygon',
+                left: 'center',
+                top: '12',
+                shape: {
+                  points: [
+                    [10, 5],
+                    [7, 0],
+                    [13, 0],
+                  ],
+                },
+                style: {
+                  fill: 'rgba(0,0,0,0.5)',
+                },
+                // style: {
+                //   // fill: '#FFFFFF',
+                //   // stroke: '#000000',
+                //   // lineWidth: 1,
+                // },
+              },
+            ],
+            // 添加点击事件监听器
+            onclick: function () {
+              console.log('图片被点击');
+            },
+          },
+        ],
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+      console.log(myChart.convertToPixel('grid', [1, 932]));
+      //   let left =  myChart.convertToPixel('grid', [0, 820])[0]
+      // let top =  myChart.convertToPixel('grid', [0, 820])[1]
+
+      //   console.log(left)
+      //   console.log(top)
+    </script>
+  </body>
+</html>
