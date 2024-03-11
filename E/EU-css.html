@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .left,
+      .right {
+        width: 200px;
+        display: inline-block;
+      }
+
+      .center {
+        display: inline-block;
+        width: calc(100% - 400px);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <div class="left"></div>
+      <div class="center"></div>
+      <div class="right"></div>
+    </div>
+  </body>
+</html>
+<script>
+  Promise.resolve(3)
+    .then((res) => {
+      console.log(res); // 微任务队列第二个
+      return 2;
+    })
+    .then((res) => {
+      console.log(res); // 任务队列第4个
+    });
+  let a = 0;
+  let b = async () => {
+    a = a + (await 10);
+    console.log(a); // 微任务队列第3个
+  };
+  b(); // 微任务队列第一个
+  a++;
+  console.log(a); // 直接执行
+  new Promise((resolve, reject) => {
+    console.log(11);
+    setTimeout(() => {
+      console.log(22); // 宏任务,所以最后输出
+    }, 100);
+  }).then((res) => {
+    console.log(33); // 无打印,因为没返回结果
+  });
+
+  // 5. 封装公共方法实现给数组对象添加唯一的 key 例如:
+  function addUniqueKeyToObjectArray(arr) {
+    let index = 0;
+
+    function addKey(obj) {
+      if (!obj.key) {
+        obj.key = `__${index++}`; //  生成唯一key 的任意规则
+      }
+      if (obj.children && Array.isArray(obj.children)) {
+        obj.children.forEach((child) => addKey(child));
+      }
+    }
+    arr.forEach((obj) => addKey(obj));
+    return arr;
+  }
+
+  // Example usage
+  let data = [
+    {
+      a: 1,
+      b: 6,
+    },
+    {
+      a: 7,
+      b: 8,
+      children: [
+        {
+          a: 5,
+          b: 7,
+          children: [
+            {
+              a: 5,
+              b: 8,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
+  let dataWithKeys = addUniqueKeyToObjectArray(data);
+  console.log(dataWithKeys);
+</script>
